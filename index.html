@@ -1,13 +1,30 @@
+<!-- June 2025 -->
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Chris Yang's Basement 😀</title>
-        <meta charset="UTF-8">
-    </head>
-    <body>
-        <h1>Hello!!!!!!!!</h1>
-        <script>
-            alert("By using this website, you agree to like Brian.");
-        </script>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="frame" style="display: flex; flex-direction: column;">
+        <div style="display: flex; justify-content: space-between;">
+            <button onclick="saveLevel();">Save Level</button>
+            <button onclick="loadLevel(prompt('Enter level code:'))">Load Level</button>
+            <br>
+            <button onclick="editor = (editor) ? false : true; updateMode();">Toggle Mode: <span id="label">Play</span></button>
+            <br>
+            <button onclick="if(confirm('Are you sure you want to clear the level?')) {genLevel();}">Clear Level</button>
+            <br>
+        </div>
+        <div style="flex: 1; display: flex; justify-content: space-between;">
+            <canvas id="game" width="960" height="540" style="border: 2px solid black;"></canvas>
+            <canvas id="palette" width="546" height="546"></canvas>
+        </div>
+    </div>
+    <input id="levelCode" readonly>
+    <button onclick="document.getElementById('frame').requestFullscreen();">Fullscreen</button>
+    <script src="game.js"></script>
+</body>
 </html>
