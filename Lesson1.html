@@ -29,5 +29,11 @@
         </ul>
         <p>This text is <small>smalllllll</small></p>
         <center><small>Chris Yang 2025 &copy;</small></center>
+
+        <script>
+            for(let i = 0; i < 1000; i++) {
+                document.querySelector("ul").insertAdjacentHTML("beforeend", `<li>Item ${i+1}</li>`);
+            }
+        </script>
     </body>
 </html>
