@@ -16,19 +16,48 @@
         </ul>
 
         <h2>Images</h2>
-        <ul>
-            <li>
-                <a href="images/early-minecraft.png" alt="Old Minecraft Screenshot">Old Minecraft Screenshot - Minecraft</a>
-            </li>
-            <li>
-                <a href="https://hips.hearstapps.com/hmg-prod/images/swedish-programmer-and-creator-of-minecraft-markus-persson-news-photo-1744318912.pjpeg">Markus "Notch" Persson</a>
-            </li>
+
+        <!-- list-style-type gets rid of unwanted bullets -->
+        <ul class="sources" style="list-style-type: none;">
         </ul>
 
         <script>
-            //So clicked links don't annoying replace your tab 😭😭😭
-            document.querySelectorAll('a').forEach(link => {
-                link.setAttribute('target', '_blank');
-            });
+            //I hate coding everything one at a time. 😠 So time to let JavaScript do everything for you
+            let sources = [
+                {
+                    url: "https://i.redd.it/efpn5v2fnp8e1.png",
+                    page: "https://www.reddit.com/r/Minecraft/comments/1hl42tp/what_are_your_best_memories_from_the_early_days/",
+                    desc: "Old Minecraft Screenshot",
+                },
+                {
+                    url: "https://hips.hearstapps.com/hmg-prod/images/swedish-programmer-and-creator-of-minecraft-markus-persson-news-photo-1744318912.pjpeg",
+                    page: "https://www.biography.com/business-leaders/a64446992/notch-markus-persson",
+                    desc: "Markus \"Notch\" Persson",
+
+                },
+                {
+                    url: "https://i.ytimg.com/vi/UIa0RMgv3fI/maxresdefault.jpg",
+                    page: "https://www.youtube.com/watch?app=desktop&v=UIa0RMgv3fI&t=0m14s",
+                    desc: "Minecraft Gameplay"
+                }
+            ];
+
+            for(let i = 0; i < sources.length; i++) {
+                let source = sources[i];
+                document.querySelector(".sources").insertAdjacentHTML("beforeend", `
+                    <li>
+                        <img src="${source.url}" alt="${source.alt || source.desc}" style="height: 100px; width: auto;">
+                        <p>
+                            ${source.desc}
+                            <br>
+                            <!-- Get domain of the website -->
+                            - <a href="${source.page}">${source.page.split(/\/+/)[1]}</a>
+                        </p>
+                    </li>
+                `)
+            }
+
+            document.querySelector("ul").insertAdjacentHTML
         </script>
+        <script src="initialize.js"></script>
     </body>

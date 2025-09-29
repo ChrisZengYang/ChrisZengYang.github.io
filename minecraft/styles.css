@@ -13,7 +13,6 @@ body {
 
 h1 {
 	font-size: 5rem;
-	margin-bottom: 100px;
 }
 
 ul li {
@@ -22,6 +21,16 @@ ul li {
 
 a {
 	color: #ffffff;
+}
+
+/* The little things */
+
+small {
+	font-size: 1rem;
+}
+
+hr {
+	margin: 200px 0 100px;
 }
 
 /* My class styles */
@@ -45,4 +54,11 @@ a {
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+}
+
+
+
+a.back-button {
+	display: inline-block;
+	margin-top: 50px;
 }
