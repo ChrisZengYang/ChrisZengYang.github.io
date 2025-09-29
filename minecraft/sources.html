@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Minecraft for Dummies</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1>Sources</h1>
+
+        <h2>Links</h2>
+        <ul>
+            <li>
+                <a href="https://simple.wikipedia.org/wiki/Minecraft">About Minecraft - Minecraft</a>
+            </li>
+        </ul>
+
+        <h2>Images</h2>
+        <ul>
+            <li>
+                <a href="images/early-minecraft.png" alt="Old Minecraft Screenshot">Old Minecraft Screenshot - Minecraft</a>
+            </li>
+            <li>
+                <a href="https://hips.hearstapps.com/hmg-prod/images/swedish-programmer-and-creator-of-minecraft-markus-persson-news-photo-1744318912.pjpeg">Markus "Notch" Persson</a>
+            </li>
+        </ul>
+
+        <script>
+            //So clicked links don't annoying replace your tab 😭😭😭
+            document.querySelectorAll('a').forEach(link => {
+                link.setAttribute('target', '_blank');
+            });
+        </script>
+    </body>
