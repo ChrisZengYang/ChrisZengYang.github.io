@@ -1,9 +1,14 @@
 //Just put some basic stuff in every page that I'm too lazy to write out everytime
 
 document.addEventListener("DOMContentLoaded", () => {
+    //Put the back links (to go back to main page)
+    let path = window.location.pathname.split(/\/+/);
+
+
     //So clicked links don't annoying replace your tab 😭😭😭
     document.querySelectorAll('a').forEach(link => {
-        link.setAttribute('target', '_blank');
+        if(link.href !== window.location.hostname)
+            link.setAttribute('target', '_blank');
     });
 
 
@@ -14,9 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
             <center><small>Chris Yang ${new Date().getFullYear()}&copy</small></center>
         </footer>
     `);
-
-    //Put the back links (to go back to main page)
-    let path = window.location.pathname.split("/");
 
     if(path[path.length-1] !== "index.html") { //NO BACK LINKS NEEDED FOR HOME PAGE!!!!! (except the other index.html)
         document.body.querySelector("h1").insertAdjacentHTML("beforebegin", `
