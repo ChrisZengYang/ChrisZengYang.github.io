@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let path = window.location.pathname.split(/\/+/);
 
 
-    //So clicked links don't annoying replace your tab 😭😭😭
+    //So clicked links don't annoying replace your tab, except if we still are in the same site
     document.querySelectorAll('a').forEach(link => {
         if(link.href.replace(/https?:\/+|file:\/+/, "").split(/\/+/)[0] !== window.location.hostname)
             link.setAttribute('target', '_blank');
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </footer>
     `);
 
-    if(path[path.length-1] !== "index.html" || path[path.length-1] !== "") { //NO BACK LINKS NEEDED FOR HOME PAGE!!!!! (except the other index.html)
+    if(document.title !== "Minecraft for Dummies") { //NO BACK LINKS NEEDED FOR HOME PAGE!!!!! (except the other index.html)
         document.body.querySelector("h1").insertAdjacentHTML("beforebegin", `
             <a href="./" class="back-button"><small>Back</small></a>
         `);
