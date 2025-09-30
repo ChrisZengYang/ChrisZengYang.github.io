@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </footer>
     `);
 
-    if(path[path.length-1] !== "index.html") { //NO BACK LINKS NEEDED FOR HOME PAGE!!!!! (except the other index.html)
+    if(path[path.length-1] !== "index.html" || path[path.length-1] !== "") { //NO BACK LINKS NEEDED FOR HOME PAGE!!!!! (except the other index.html)
         document.body.querySelector("h1").insertAdjacentHTML("beforebegin", `
             <a href="./" class="back-button"><small>Back</small></a>
         `);
