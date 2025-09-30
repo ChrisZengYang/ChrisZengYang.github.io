@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //So clicked links don't annoying replace your tab 😭😭😭
     document.querySelectorAll('a').forEach(link => {
-        if(link.href.replace(/https?:\/+/, "").split(/\/+/)[0] !== window.location.hostname)
+        if(link.href.replace(/https?:\/+|file:\/+/, "").split(/\/+/)[0] !== window.location.hostname)
             link.setAttribute('target', '_blank');
     });
 
