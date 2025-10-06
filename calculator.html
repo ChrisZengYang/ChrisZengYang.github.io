@@ -6,5 +6,13 @@
   <body>
     <h1>This is a calculator.</h1>
     <p><strong>The answer is: </strong><span id="answer"></span></p>
+
+    <script>
+      let num1 = Number(prompt("Enter a value: "));
+      let num2 = Number(prompt("Enter another value: "));
+
+      let answer = num1 + num2;
+      document.getElementById("answer").textContent = answer;
+    </script>
   </body>
 </html>
