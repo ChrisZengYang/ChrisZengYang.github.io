@@ -1,11 +1,20 @@
 body {
   background-color: black;
   color: white;
+
+  font-family: Arial
 }
 
 .name{
   color: purple;
   border: 2px solid white;
+
+  border-width: 8px;
+  border-color: white;
+  border-radius: 15px;
+  
+  margin-bottom: 100px;
+  padding: 50px;
 }
 
 .question{
@@ -15,4 +24,7 @@ body {
   border-width: 4px
   border-color: white;
   border-radius: 15px;
+
+  margin: 50px 0;
+  padding: 50px;
 }
