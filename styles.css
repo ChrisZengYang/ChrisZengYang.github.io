@@ -10,4 +10,5 @@ body {
 
 .question{
   text-decoration: underline;
+  border: 2px solid white;
 }
