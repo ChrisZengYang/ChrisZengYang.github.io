@@ -9,15 +9,15 @@
 
 <body>
     <div id="navbar">
-        <h2>🐘 Elephants</h2> <!-- Added forward slash to ending h2 tag -->
-        <h2> Name</h2>
+        <h2>🐘 Elephants</h2> <!-- Added forward slash to ending h2 tag; The browser needs the slash to distinguish between opening and closing tags to parse text properly -->
+        <h2>Chris Yang</h2>
     </div>
 
     <div id="hero">
         <h1>Elephants of the World</h1>
         <p>The gentle giants that shape our ecosystems.</p>
 
-        <div class="section"> <!-- Added missing quotation mark -->
+        <div class="section"> <!-- Added missing quotation mark so the browser can find the end of the attribute value -->
             <h2>About Elephants</h2>
             <p> <!-- Added missing opening <p> tag, which is crucial for the browser to know how to parse the text -->
             Elephants are the largest land mammals on Earth. They are highly intelligent and form
@@ -56,11 +56,11 @@
                 <div class="fact-card">🐘 Elephants can recognize themselves in mirrors.</div> <!-- Added closing </div> tag -->
                 <div class="fact-card">💧 They use their trunks like snorkels when swimming.</div>
                 <div class="fact-card">🌿 They eat up to 300 pounds of food per day!</div>
-                <!-- Removed extra </div> tag -->
+                <!-- Removed extra </div> tag; There should be only one closing </div> tag for each opened <div> -->
             </div>
         </div>
 
-        <div id="footer">  <!-- Added missing closing angled bracket ">" to <div id="footer"> tag -->
+        <div id="footer">  <!-- Added missing closing angled bracket ">" to <div id="footer"> tag so the browser can properly interpret as a closing tag -->
             <p>© 2025 Elephants of the World</p>
         </div>
 
