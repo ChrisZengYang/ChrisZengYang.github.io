@@ -23,8 +23,17 @@
             <canvas id="palette" width="546" height="546"></canvas>
         </div>
     </div>
-    <input id="levelCode" readonly>
     <button onclick="document.getElementById('frame').requestFullscreen();">Fullscreen</button>
+    <button onclick="loadLevel(saveLevel())">Refresh Level Stats</button>
+    <pre id="stats">Loading stats...</p>
+    <p>
+        Controls:
+        <br>WASD / Arrow Keys: Move
+        <br>0: Level Editor
+        <br>S: Toggle smart slope builder
+        <br>Shift: Toggle Rectangle builder
+    </p>
+    <input id="levelCode" readonly>
     <script src="game.js"></script>
 </body>
 </html>

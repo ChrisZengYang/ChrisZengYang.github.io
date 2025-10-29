@@ -45,6 +45,12 @@ canvas.addEventListener("mouseup", (e) => {
 
 
 //Physics and global functions definitions
+let levelStats = {
+    totalTiles: 0,
+    totalEmptyTiles: 0,
+    tileCount: {}
+};
+
 let editor = false;
 
 const tileSize = 32;
@@ -731,10 +737,12 @@ function updateLevel() {
             let y = tileSize*j;
             let type = tileGrid[tileIndex];
 
+            levelStats.tileCount[type] = (levelStats.tileCount[type] ?? 0) + 1;
             if(type != 0) {
                 blocks.push(new Block(x, y, tileSize, tileSize, type));
             } else{
                 blocks.push(null);
+                levelStats.totalEmptyTiles++;
             }
             tileIndex++;
         }
@@ -838,10 +846,13 @@ function saveLevel() {
     }*/
 
     document.getElementById("levelCode").value = encoded;
+    return encoded;
 };
 
-
 function loadLevel(code) {
+    //Reset level stats
+    levelStats = {
+    };
     if(!code || code === "") {
         return;
     }
@@ -884,9 +895,31 @@ function loadLevel(code) {
     //METADATA
 
     //while(readIndex)
+    spawnIndex = tileGrid.indexOf(49);
+    levelStats.width = width;
+    levelStats.height = height;
+    levelStats.spawnPos = "x: " + Math.floor(spawnIndex/height) + ", y: " + (spawnIndex % height);
+    levelStats.totalTiles = width * height;
+    levelStats.tileCount = {};
+    levelStats.totalEmptyTiles = 0;
 
     updateLevel();
-    spawnIndex = tileGrid.indexOf(49);
+    //levelStats.totalEmptyTiles is determined in updateLevel();
+    //levelStats.tileCount is determined in updateLevel();
+    levelStats.percentEmpty = ((levelStats.totalEmptyTiles / levelStats.totalTiles) * 100).toFixed(2) + "%";
+    levelStats.sortInFrequency = Object.entries(levelStats.tileCount)
+        .sort((a, b) => b[1] - a[1])
+        .map(entry => `\tTile ${entry[0]}: ${entry[1]} times (${(entry[1]/levelStats.totalTiles * 100).toFixed(2)}%)`)
+        .join("\n");
+    document.getElementById("stats").textContent =
+        `
+        Spawn Position: ${levelStats.spawnPos}\n\n
+        Level Size: ${levelStats.width} x ${levelStats.height}\n
+        Total Tiles: ${levelStats.totalTiles}\n
+        Total Empty Tiles: ${levelStats.totalEmptyTiles}\n
+        Percent Empty: ${levelStats.percentEmpty}\n
+        \nTile List:\n${levelStats.sortInFrequency}
+        `;
 }
 
 function readLetter() {
@@ -927,14 +960,16 @@ let lastGridY;
 let drawnRect = {x: gridX, y: gridY, x2: gridX, y2: gridY};
 let drawnSlope = {x: gridX, y: gridY, x2: gridX, y2: gridY};
 
-let slopeGroups = [{
-    "0.5": [11, 12],
-    "1": [7],
-    "leftjoiner": 8,
-    "-0.5": [13, 14],
-    "-1": [10],
-    "rightjoiner": 9
-}];
+let slopeGroups = [
+    {
+        "0.5": [11, 12],
+        "1": [7],
+        "leftjoiner": [8],
+        "-0.5": [13, 14],
+        "-1": [10],
+        "rightjoiner": [9]
+    }
+];
 
 function edit() {
     ctx.resetTransform();
@@ -1023,39 +1058,41 @@ function edit() {
     }
 
     //Speed drawing large rectangles by dragging
-    if (keys['Shift'] && !lastKeys['Shift']) { //Toggle draw rectangle mode
-        drawRects = !drawRects;
-    }
-    
-    if(drawRects && chosenBrush != 49) {
-        if(mouse.down && !mouse.wasDown) {
-            drawnRect.x = gridX;
-            drawnRect.y = gridY;
+    {
+        if (keys['Shift'] && !lastKeys['Shift']) { //Toggle draw rectangle mode
+            drawRects = !drawRects;
         }
-
-        if(mouse.down){//!mouse.down && mouse.wasDown) {
-            drawnRect.x2 = gridX;
-            drawnRect.y2 = gridY;
-            
-            //Ensure x and y are the smaller values while x2 and y2 are the larger values to make a valid rectangle
-            const rectX = Math.min(drawnRect.x, drawnRect.x2);
-            const rectX2 = Math.max(drawnRect.x, drawnRect.x2);
-            const rectY = Math.min(drawnRect.y, drawnRect.y2);
-            const rectY2 = Math.max(drawnRect.y, drawnRect.y2);
-            
-            let rectWidth = Math.abs(rectX2 - rectX) + 1;
-            let rectHeight = Math.abs(rectY2 - rectY) + 1;
-
-            for(let i = 0; i < rectWidth; i++) {
-                for(let j = 0; j < rectHeight; j++) {
-                    const x = rectX + i;
-                    const y = rectY + j;
-
-                    let index = x * height + y;
-                    tileGrid[index] = chosenBrush;
-                }
+        
+        if(drawRects && chosenBrush != 49) {
+            if(mouse.down && !mouse.wasDown) {
+                drawnRect.x = gridX;
+                drawnRect.y = gridY;
             }
-            updateLevel();
+
+            if(mouse.down){//!mouse.down && mouse.wasDown) {
+                drawnRect.x2 = gridX;
+                drawnRect.y2 = gridY;
+                
+                //Ensure x and y are the smaller values while x2 and y2 are the larger values to make a valid rectangle
+                const rectX = Math.min(drawnRect.x, drawnRect.x2);
+                const rectX2 = Math.max(drawnRect.x, drawnRect.x2);
+                const rectY = Math.min(drawnRect.y, drawnRect.y2);
+                const rectY2 = Math.max(drawnRect.y, drawnRect.y2);
+                
+                let rectWidth = Math.abs(rectX2 - rectX) + 1;
+                let rectHeight = Math.abs(rectY2 - rectY) + 1;
+
+                for(let i = 0; i < rectWidth; i++) {
+                    for(let j = 0; j < rectHeight; j++) {
+                        const x = rectX + i;
+                        const y = rectY + j;
+
+                        let index = x * height + y;
+                        tileGrid[index] = chosenBrush;
+                    }
+                }
+                updateLevel();
+            }
         }
     }
 
@@ -1065,12 +1102,17 @@ function edit() {
     }
 
     if(drawSlopes) {
-        const slope = 0.5;
+        //Find the index of the slope group the chosen brush belongs to
+        const groupIndex = slopeGroups.findIndex(group => {
+            //Object.values(group) iterates through each slope group's tile arrays
+            return Object.values(group).some(tileType => tileType.includes(chosenBrush));
+        });
 
-        const groupIndex = slopeGroups.findIndex(group => group.includes(chosenBrush));
+        const slopeGroup = slopeGroups[groupIndex];
 
-
-
+        const slope = (groupIndex === -1) ? 0 : Object.keys(slopeGroup).find(key => {
+            return slopeGroup[key].includes(chosenBrush);
+        });
         if(mouse.down && !mouse.wasDown) {
             drawnSlope.x = gridX;
             drawnSlope.y = gridY;
@@ -1087,28 +1129,67 @@ function edit() {
             const rectY2 = Math.max(drawnSlope.y, drawnSlope.y2);
             
             let rectWidth = Math.abs(rectX2 - rectX) + 1;
-            let rectHeight = Math.abs(rectY2 - rectY) + 1;
+            let rectHeight =  Math.floor(Math.abs(slope)*rectWidth);
+
+            if(drawnSlope.x2 < drawnSlope.x) { //Drawing right to left
+                
+            }
 
             for(let i = 0; i < rectWidth; i++) {
-                for(let j = Math.floor(slope*i); j >= 0; j--) {
-                    const x = rectX + i;
-                    const y = rectY - j;
+                if(slope > 0) { //Positive slope (upward)
+                    for(let j = Math.floor(slope*i); j >= 0; j--) { //slope*i gives the height of the slope at that x position
+                        const x = rectX + i;
+                        const y = rectY - j;
 
-                    let index = x * height + y;
+                        let index = x * height + y; //Index of current tile being drawn
 
-                    switch(j) {
-                        case Math.floor(slope*i):
-                            tileGrid[index] = (i%2===0) ? 11 : 12;
-                            break;
-                        case Math.floor(slope*i)-1:
-                            if((i%Math.floor(1/slope))===0) {
-                                tileGrid[index] = 8;
-                            } else{
+                        //Determine which slope tile to place based on position
+                        switch(j) {
+                            case Math.floor(slope*i): //Are we on the surface of the slope? (First tile at the top)
+                                if(Math.abs(slope) === 1) {
+                                    tileGrid[index] = slopeGroup[slope][0]; //For slope of 1 or -1, just place the single tile type
+                                } else{
+                                    tileGrid[index] = (i%2===0) ? slopeGroup[slope][0] : slopeGroup[slope][1]; //Alternate between the two tile types for smoother appearance
+                                }
+                                break;
+                            case Math.floor(slope*i)-1: //Are we on the second tile from the top?
+                                if((i%Math.floor(1/slope))===0) { //Are we at a joiner position?
+                                    tileGrid[index] = slopeGroup["leftjoiner"][0]; //Create joiner tile
+                                } else{
+                                    tileGrid[index] = 5; //Place regular center tile
+                                }
+                                break;
+                            default: //Are we below the second tile from the top?
                                 tileGrid[index] = 5;
-                            }
-                            break;
-                        default:
-                            tileGrid[index] = 5;
+                        }
+                    }
+                } else if(slope < 0) { //Negative slope (downward)
+                    for(let j = 0; j < rectHeight-Math.floor(-slope*i); j++) { //slope*i gives the height of the slope at that x position
+                        console.log(Math.floor(-slope*i));
+                        const x = rectX + i;
+                        const y = rectY - j;
+
+                        let index = x * height + y; //Index of current tile being drawn
+
+                        //Determine which slope tile to place based on position
+                        switch(j) {
+                            case rectHeight-Math.floor(-slope*i)-1: //Are we on the surface of the slope? (First tile at the top)
+                                if(Math.abs(slope) === 1) {
+                                    tileGrid[index] = slopeGroup[slope][0]; //For slope of 1 or -1, just place the single tile type
+                                } else{
+                                    tileGrid[index] = (i%2===0) ? slopeGroup[slope][0] : slopeGroup[slope][1]; //Alternate between the two tile types for smoother appearance
+                                }
+                                break;
+                            case rectHeight-Math.floor(-slope*i)-2: //Are we on the second tile from the top?
+                                if((i%Math.floor(1/-slope))===Math.floor(1/-slope)-1) { //Are we at a joiner position?
+                                    tileGrid[index] = slopeGroup["rightjoiner"][0]; //Create joiner tile
+                                } else{
+                                    tileGrid[index] = 5; //Place regular center tile
+                                }
+                                break;
+                            default: //Are we below the second tile from the top?
+                                tileGrid[index] = 5;
+                        }
                     }
                 }
             }
@@ -1319,5 +1400,4 @@ function loop() {
 loop();
 /*let l = setInterval(() => {
     loop();
-
 }, 1000/60)*/
