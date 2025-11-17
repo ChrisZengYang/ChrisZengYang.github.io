@@ -20,7 +20,7 @@
                 <img src="resources/antra.png" alt="Antra Logo" style="float: left; height: 50px;">
             </li>
             <li>
-                <a href="#">Home</a>
+                <a href=".">Home</a>
             </li>
             <li>
                 <a href="./products/">Products</a>
@@ -197,7 +197,8 @@ ante mauris, consequat quis tristique in, bibendum at eros.</p>
 
 <!-- Dynamic link highlighting for nav -->
 <script>
-    let currentPath = window.location.pathname;
+    let path = window.location.pathname.split("/");
+    let currentPath = path.slice(1, path.length-1).join("/");
 
     navLinks.forEach(link => {
         if(link.getAttribute("path") === currentPath) {
