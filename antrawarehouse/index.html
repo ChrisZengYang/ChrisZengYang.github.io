@@ -199,6 +199,7 @@ ante mauris, consequat quis tristique in, bibendum at eros.</p>
 <script>
     let path = window.location.pathname.split("/");
     let currentPath = "/" + path.slice(1, path.length-1).join("/") + "/";
+    let navlinks = document.querySelectorAll("nav ul li a");
 
     navLinks.forEach(link => {
         if(link.getAttribute("pathname") === currentPath) {
