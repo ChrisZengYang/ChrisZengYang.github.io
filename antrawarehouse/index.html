@@ -7,17 +7,18 @@
 
     <link rel="stylesheet" href="styles.css">
 
-    <!-- Google Fonts -->
+    <!-- Google Font: JetBrains Mono -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains%20Mono">
 </head>
 
 <body>
     <!-- Navigation bar -->
     <nav>
+        <!-- Used an unordered list to display navigation links; will set styles in CSS -->
         <ul>
-            <l1>
+            <li>
                 <img src="resources/antra.png" alt="Antra Logo" style="float: left; height: 50px;">
-            </l1>
+            </li>
             <li>
                 <a href="#">Home</a>
             </li>
@@ -31,7 +32,9 @@
     </nav>
 
     <!-- Landing section -->
-    <canvas id="landing-page"></canvas>
+    <canvas id="landing-page"></canvas> <!-- Canvas for landing page background -->
+
+    <!-- Content in here will overlay the canvas -->
     <section class="landing">
         <h1>WELD LIKE A PRO.</h1>
         <br>
@@ -55,6 +58,8 @@
         </div>
     </section>
 
+    <!-- Each .card section will show a bit of information about the site -->
+    <!-- Quality Affordable Welding Helmets -->
     <section class="card" style="background-color: #0f0d1c;">
         <div class="horizontal-row">
             <div class="row-item" style="flex-grow: 0.6;">
@@ -71,15 +76,19 @@ ante mauris, consequat quis tristique in, bibendum at eros.</p>
             </div>
         </div>
     </section>
+
     <hr>
-    <div style="position: relative; top: -66px; border: 8px solid white; background-color: #7c7474; border-radius: 100%; width: 100px; height: 100px; margin: auto;"></div>
+    <!-- this div is the little circle between the two cards -->
+    <div style="position: relative; top: -42px; border: 8px solid white; background-color: #7c7474; border-radius: 100%; width: 50px; height: 50px; margin: auto;"></div>
+
+    <!-- Reliable Welding PPE -->
     <section class="card">
         <div class="horizontal-row">
             <div class="row-item" style="flex-grow: 0.3">
-                <img class="circle accent1" src="resources/helmet.png" alt="A welding helmet" style="width: 100%;">
+                <img class="circle accent1" src="resources/gloves.jpg" alt="A welding helmet" style="width: 100%;">
             </div>
             <div class="row-item" style="flex-grow: 0.6; text-align: right;">
-                <h1>Quality Affordable Welding Helmets</h1>
+                <h1>Reliable Welding PPE</h1>
                 <hr class="header right accent1">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis accumsan euismod
 sagittis. Mauris non ultricies erat. Sed pretium bibendum lacus a convallis. Etiam
@@ -91,9 +100,47 @@ ante mauris, consequat quis tristique in, bibendum at eros.</p>
     </section>
 
     <footer>
+        <div id="footer-info" class="horizontal-row">
+            <div class="row-item" style="flex-grow: 2;"> <!-- Flex grow gives the logo more space than the other columns -->
+                <img src="resources/antra.png" alt="Antra Logo" style="height: 75px;">
+            </div>
+            <div class="row-item">
+                <h3>Shop</h3>
+                <ul>
+                    <li>Welding Helmets</li>
+                    <li>Welding Protective Gear</li>
+                    <li>Projection Screens</li>
+                    <li>Antennae</li>
+                </ul>
+            </div>
+            <div class="row-item">
+                <h3>Important</h3>
+                <ul>
+                    <li>Warranty</li>
+                    <li>Manual Downloads</li>
+                    <li>How-to videos</li>
+                </ul>
+            </div>
+            <div class="row-item">
+                <h3>Follow Us On:</h3>
+                <ul class="icon-list">
+                    <li>
+                        <img src="resources/Facebook.png" alt="Facebook Logo">
+                    </li>
+                    <li>
+                        <img src="resources/Instagram.png" alt="Instagram Logo">
+                    </li>
+                    <li>
+                        <img src="resources/YouTube.png" alt="YouTube Logo">
+                    </li>
+                </ul>
+            </div>
+        </div>
         <center>Antra Warehouse 2025&copy;</center>
     </footer>
 </body>
+
+<!-- Canvas scripts for landing page background -->
 <script>
     const landing = document.getElementById("landing-page");
     const canvas = landing.getContext("2d");
@@ -109,6 +156,8 @@ ante mauris, consequat quis tristique in, bibendum at eros.</p>
     canvas.ellipse(landing.width, landing.height, 400, 400, 0, 0, 2 * Math.PI, false);
     canvas.fill();
 </script>
+
+<!-- Conveyor belt animation script -->
 <script>
     let conveyor = document.querySelector("#conveyor-belt");
         let rect = conveyor.getBoundingClientRect(); //Get the absolute position in px of the conveyor belt
@@ -144,6 +193,18 @@ ante mauris, consequat quis tristique in, bibendum at eros.</p>
     }
 
     animate();
+</script>
+
+<!-- Dynamic link highlighting for nav -->
+<script>
+    let currentPath = window.location.pathname;
+
+    navLinks.forEach(link => {
+        if(link.getAttribute("path") === currentPath) {
+            link.style.fontWeight = "bold";
+            link.style.textDecoration = "underline";
+        }
+    });
 </script>
 
 </html>

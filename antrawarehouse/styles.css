@@ -60,10 +60,10 @@ nav ul li{
 footer{
     background-color: #0f0d1c;
 
-    padding: 100px;
+    padding: 100px 100px 50px;
     margin-top: 100px;
 
-    border-bottom:  16px solid #e99418;
+    border-bottom:  8px solid #e99418;
 }
 
 /*  */
@@ -75,6 +75,17 @@ section.card h1 {
     font-size: 3rem;
 }
 
+#footer-info {
+    margin-bottom: 70px;
+}
+#footer-info ul {
+    list-style-type: none;
+    padding: 0;
+}
+#footer-info div {
+    flex-grow: 1;
+    margin-bottom: 20px;
+}
 
 /* General block elements */
 
@@ -141,10 +152,21 @@ img.accent2, hr.accent2 {
     flex-basis: 0; /* Sets default flex grow size to 0 so all elements in a horizontal row share take up the same space by default */
 }
 
-/* For images that need to be in a circle */
-.circle {
+.circle { /* For images that need to be in a circle */
     border-radius: 100%;
     border: 10px solid;
+}
+
+.icon-list { /* For lists of icons in footer */
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.icon-list img {
+    width: 40px;
+    height: 40px;
 }
 
 /* Text elements */
