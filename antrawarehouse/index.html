@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Antra Warehouse</title>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains%20Mono">
+</head>
+
+<body>
+    <!-- Navigation bar -->
+    <nav>
+        <ul>
+            <l1>
+                <img src="resources/antra.png" alt="Antra Logo" style="float: left; height: 50px;">
+            </l1>
+            <li>
+                <a href="#">Home</a>
+            </li>
+            <li>
+                <a href="./products/">Products</a>
+            </li>
+            <li>
+                <a href="./contact/">Contact</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Landing section -->
+    <canvas id="landing-page"></canvas>
+    <section class="landing">
+        <h1>WELD LIKE A PRO.</h1>
+        <br>
+        <hr style="border: 2px solid white; width: 30%; margin-inline-start: 0;">
+
+        <div class="horizontal-row">
+            <div class="row-item" style="flex-grow: 0.35;">
+                <p style="margin-bottom: 50px;">
+                    Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Duis accumsan euismod
+                    sagittis. Mauris non ultricies erat. Sed
+                    pretium bibendum lacus a convallis.
+                </p>
+                <button class="accent1 border">Shop Now</button>
+
+                <div id="conveyor-belt" style="margin-top: 50px; width: 100%; height: 150px;"></div>
+            </div>
+            <div class="row-item" style="flex-grow: 0.45;">
+                <img src="resources/landing.jpg" class="shadow" alt="Image of a welder." style="width: 100%">
+            </div>
+        </div>
+    </section>
+
+    <section class="card" style="background-color: #0f0d1c;">
+        <div class="horizontal-row">
+            <div class="row-item" style="flex-grow: 0.6;">
+                <h1>Quality Affordable Welding Helmets</h1>
+                <hr class="header left accent2">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis accumsan euismod
+sagittis. Mauris non ultricies erat. Sed pretium bibendum lacus a convallis. Etiam
+ante mauris, consequat quis tristique in, bibendum at eros.</p>
+                <br>
+                <button class="accent2">Shop Now</button>
+            </div>
+            <div class="row-item" style="flex-grow: 0.3">
+                <img class="circle accent2" src="resources/helmet.png" alt="A welding helmet" style="width: 100%;">
+            </div>
+        </div>
+    </section>
+    <hr>
+    <div style="position: relative; top: -66px; border: 8px solid white; background-color: #7c7474; border-radius: 100%; width: 100px; height: 100px; margin: auto;"></div>
+    <section class="card">
+        <div class="horizontal-row">
+            <div class="row-item" style="flex-grow: 0.3">
+                <img class="circle accent1" src="resources/helmet.png" alt="A welding helmet" style="width: 100%;">
+            </div>
+            <div class="row-item" style="flex-grow: 0.6; text-align: right;">
+                <h1>Quality Affordable Welding Helmets</h1>
+                <hr class="header right accent1">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis accumsan euismod
+sagittis. Mauris non ultricies erat. Sed pretium bibendum lacus a convallis. Etiam
+ante mauris, consequat quis tristique in, bibendum at eros.</p>
+                <br>
+                <button class="accent1">Shop Now</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <center>Antra Warehouse 2025&copy;</center>
+    </footer>
+</body>
+<script>
+    const landing = document.getElementById("landing-page");
+    const canvas = landing.getContext("2d");
+    landing.width = landing.clientWidth;
+    landing.height = landing.clientHeight;
+
+    canvas.fillStyle = "#1f1f3c";
+    canvas.beginPath();
+    canvas.ellipse(0, 0, 400, 400, 0, 0, 2 * Math.PI, false);
+    canvas.fill();
+
+    canvas.beginPath();
+    canvas.ellipse(landing.width, landing.height, 400, 400, 0, 0, 2 * Math.PI, false);
+    canvas.fill();
+</script>
+<script>
+    let conveyor = document.querySelector("#conveyor-belt");
+        let rect = conveyor.getBoundingClientRect(); //Get the absolute position in px of the conveyor belt
+    
+    for(let i = 0; i < 6; i++) {
+        conveyor.insertAdjacentHTML(
+            "beforeend",
+            `<img class="animated-scrolling" src="resources/triangle.png"
+            style="
+            position:absolute;
+            left: ${i*((rect.width+60)/6)}px;
+            top: 0px;
+            width: 10%;
+            height: auto;
+            margin: 0 10px;">`
+        );
+    }
+
+    function animate() {
+        let items = document.querySelectorAll("#conveyor-belt .animated-scrolling");
+
+        items.forEach(item => {
+            let x = parseFloat(item.style.left);
+            x += 2;
+
+            if(x > rect.width) {
+                x = -60;
+            }
+            item.style.left = x + "px";
+        });
+
+        requestAnimationFrame(animate); //Start the infinite triangle loop!!!!!
+    }
+
+    animate();
+</script>
+
+</html>
