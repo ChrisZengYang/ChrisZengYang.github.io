@@ -198,10 +198,10 @@ ante mauris, consequat quis tristique in, bibendum at eros.</p>
 <!-- Dynamic link highlighting for nav -->
 <script>
     let path = window.location.pathname.split("/");
-    let currentPath = path.slice(1, path.length-1).join("/");
+    let currentPath = "/" + path.slice(1, path.length-1).join("/") + "/";
 
     navLinks.forEach(link => {
-        if(link.getAttribute("path") === currentPath) {
+        if(link.getAttribute("pathname") === currentPath) {
             link.style.fontWeight = "bold";
             link.style.textDecoration = "underline";
         }
