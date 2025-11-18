@@ -202,7 +202,7 @@ ante mauris, consequat quis tristique in, bibendum at eros.</p>
     let navLinks = document.querySelectorAll("nav ul li a");
 
     navLinks.forEach(link => {
-        if(link.getAttribute("pathname") === currentPath) {
+        if(link.pathname === currentPath) {
             link.style.fontWeight = "bold";
             link.style.textDecoration = "underline";
         }
