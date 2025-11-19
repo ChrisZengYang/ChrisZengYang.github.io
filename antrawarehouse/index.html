@@ -16,8 +16,8 @@
     <nav>
         <!-- Used an unordered list to display navigation links; will set styles in CSS -->
         <ul>
-            <li>
-                <img src="resources/antra.png" alt="Antra Logo" style="float: left; height: 50px;">
+            <li class="brand">
+                <img src="resources/antra.png" alt="Antra Logo" style="float: left;">
             </li>
             <li>
                 <a href=".">Home</a>
@@ -196,17 +196,6 @@ ante mauris, consequat quis tristique in, bibendum at eros.</p>
 </script>
 
 <!-- Dynamic link highlighting for nav -->
-<script>
-    let path = window.location.pathname.split("/");
-    let currentPath = "/" + path.slice(1, path.length-1).join("/") + "/";
-    let navLinks = document.querySelectorAll("nav ul li a");
-
-    navLinks.forEach(link => {
-        if(link.pathname === currentPath) {
-            link.style.fontWeight = "bold";
-            link.style.textDecoration = "underline";
-        }
-    });
-</script>
+<script src="script.js"></script>
 
 </html>
