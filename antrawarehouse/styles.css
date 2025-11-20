@@ -8,12 +8,13 @@ body{
     font-family: Calibri;
 }
 
+/* Navigation bar */
 nav{
     background-color: #0f0d1c;
     font-size: 1.5rem;
 }
 nav ul{
-    margin: 0 0 100px;
+    margin: 0;
     border-top: 4px solid #ce6e00;
     padding: 0;
 
@@ -39,7 +40,7 @@ nav ul li.brand {
     margin: 0 auto 0 0; /* Pushes the logo to the left side */
 }
 nav ul li.active-link {
-    background-color: #0a0913;
+    background-color: #39346b;
 }
 nav ul li img{
     width: auto;
@@ -47,6 +48,7 @@ nav ul li img{
     object-fit: contain; /* Prevent image distortion, because flex destroys the aspect ratio 😭 */
 }
 
+/* Landing section */
 #landing-page, .landing {
     width: 100%;
     height: 900px;
@@ -67,13 +69,30 @@ nav ul li img{
     font-weight: lighter;
     margin: 0;
 }
-.landing img.shadow{
-    box-shadow: 30px 30px #4e4b7a;
+
+
+/* the cool triangle thingies you see in the home page */
+#conveyor-belt{
+    position: relative; /* So the children triangles can be affected by overflow: hidden; */
+    display: flex; /* Prevent wrapping of elements, so the triangles don't make a new line */
+    overflow: hidden;
+    width: 50%;
+}
+footer{
+    background-color: #0f0d1c;
+
+    padding: 100px 100px 50px;
+    margin-top: 100px;
+
+    border-bottom:  8px solid #e99418;
 }
 
 /* Products section */
 .products {
-    text-align: center;;
+    width: 70%;
+    margin: 150px auto;
+
+    text-align: center;
 }
 
 .product-list {
@@ -98,7 +117,7 @@ nav ul li img{
     padding-bottom: 50px;
     margin: 20px;
 
-    width: 20%;
+    width: 25%;
     box-sizing: border-box; /* So padding doesn't increase the width */
 }
 .product-image-container {
@@ -114,35 +133,25 @@ nav ul li img{
     justify-content: center;
     height: 400px;
     overflow: hidden;
+
 }
-.product-image {
+.product-card h5 {
+    margin: 0 30px;
+}
+.product-card button {
+    padding: 15px 30px;
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+.product-image,.detailed-product-image {
     display: block;
     max-height: 100%;
     width: auto;
     object-fit: contain; /* keep aspect ratio, fill available height */
     margin: 0 auto;
 }
-.product-card h3 {
-    margin: 0 30px;
-}
 
-/* the cool triangle thingies you see in the home page */
-#conveyor-belt{
-    position: relative; /* So the children triangles can be affected by overflow: hidden; */
-    display: flex; /* Prevent wrapping of elements, so the triangles don't make a new line */
-    overflow: hidden;
-    width: 50%;
-}
-footer{
-    background-color: #0f0d1c;
-
-    padding: 100px 100px 50px;
-    margin-top: 100px;
-
-    border-bottom:  8px solid #e99418;
-}
-
-/*  */
+/* Section cards (key points about the website) */
 
 section.card {
     padding: 100px;
@@ -162,9 +171,15 @@ section.card h1 {
     flex-grow: 1;
     margin-bottom: 20px;
 }
+#footer-info li {
+    margin-bottom: 10px;
+}
+#footer-info a {
+    text-decoration: underline;
+}
 
 /* General block elements */
-
+/* Horizontal rules */
 hr{
     border: 2px solid;
     color: white;
@@ -183,6 +198,7 @@ hr.right {
     margin-inline-end: 0;
 }
 
+/* Buttons */
 button{
     font-size: 1.5rem;
     padding: 20px;
@@ -205,30 +221,39 @@ button:hover.accent2 {
 }
 
 /* General classes */
-.accent1 {
+.accent1 { /* Orange */
     background-color: #e99418;
 }
 img.accent1, hr.accent1 {
     border-color: #e99418;
 }
-.accent2 {
+.accent2 { /* Green */
     background-color: #47a73c;
 }
 img.accent2, hr.accent2 {
     border-color: #47a73c;
 }
 
-.border {
+.border { /* Elements with a border */
     border: 4px solid white;
 }
 
-.horizontal-row {
+.shadow{ /* Image shadowing */
+    box-shadow: 20px 20px #202022;
+}
+
+.horizontal-row { /* For horizontal rows of elements */
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.row-item {
+.vertical-column { /* For vertical columns of elements */
+    display: flex;
+    flex-direction: column;
+}
+
+.row-item { /* Items in a horizontal row */
     flex-basis: 0; /* Sets default flex grow size to 0 so all elements in a horizontal row share take up the same space by default */
 }
 
@@ -247,26 +272,45 @@ img.accent2, hr.accent2 {
 .icon-list img {
     width: 40px;
     height: 40px;
+    border-radius: 10px;
 }
 
 /* Text elements */
-h1{
+h1{ /* Main headings */
     font-size: 6rem;
 }
 .landing{
     font-weight: lighter;
 }
 
-h2{
+h2{ /* Subheadings */
     font-size: 3rem;
 }
 
-p{
-    font-size: 1.5rem;
+h3 { /* Subsubheadings */
+    font-size: 2rem;
 }
 
+h4 { /* Subsubsubheadings */
+    font-size: 1.75rem;
+
+}
+
+h5 { /* Subsubsubsubheadings */
+    font-size: 1.25rem;
+
+}
+
+h6 { /* Subsubsubsubsubheadings */
+    font-size: 0.5rem;
+
+}
+
+p{/* Paragraphs */
+    font-size: 1.5rem;
+}
+    
 a{
     color: white;
     text-decoration: none;
 }
-
