@@ -1,3 +1,10 @@
+/* Animation */
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
 /* Block-level elements */
 
 body{
@@ -115,10 +122,12 @@ footer{
     background-image: linear-gradient(#15141f, #0f0d1c);
     border-radius: 25px;
     padding-bottom: 50px;
-    margin: 20px;
+    margin: 20px 20px 100px;
 
     width: 25%;
     box-sizing: border-box; /* So padding doesn't increase the width */
+
+    animation: fadeIn 1s ease forwards;
 }
 .product-image-container {
     position: relative; /* So the sale badge can be positioned absolutely within this container */
@@ -235,6 +244,20 @@ button:hover.accent1 {
 }
 button:hover.accent2 {
     background-color: #107a05;
+}
+
+select{
+    border: 2px solid white;
+    color: white;
+
+    background-color: black;
+    appearance: none; /* Remove default styling */
+
+    padding: 20px;
+    margin-bottom: 100px;
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1rem;
 }
 
 /* General classes */

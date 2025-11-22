@@ -1,23 +1,35 @@
 //Extract product name from URL
-let product = window.location.href.split("product=")[1];
-product = decodeURIComponent(product || "");
+let urlParams = new URLSearchParams(window.location.search);
+let product = urlParams.get('product');
+let type = urlParams.get('type');
 
 // Product list
 let products = [
     {
-        SKU: "DP8-001X", //Product Code
-        name: "Antra® DP8-001X, Auto Shading & Darkening Welding Helmet", //Product Name
-        price: 274.00, //Product Price
-        img: "../resources/DP8-001X.jpg", //Product Image Path
-        sale: 173.00 //Sale Price (if applicable)
+        type: "helmets",
+        SKU: "DP8-G", //Product Code
+        name: "Antra® DP8-G, Auto Shading & Darkening Welding Helmet", //Product Name
+        price: 199.00, //Product Price
+        img: "../resources/DP8-G.jpg", //Product Image Path
+        sale: 119.00 //Sale Price (if applicable)
     },
     {
+        type: "helmets",
+        SKU: "DP8-001X", 
+        name: "Antra® DP8-001X, Auto Shading & Darkening Welding Helmet", 
+        price: 274.00, 
+        img: "../resources/DP8-001X.jpg", 
+        sale: 173.00
+    },
+    {
+        type: "helmets",
         SKU: "DP5A-0000",
         name: "Antra® DP5A-0000, Auto Shading & Darkening Welding Helmet",
         price: 92.00,
         img: "../resources/DP5A.png"
     },
     {
+        type: "helmets",
         SKU: "DP3+-6404",
         name: "Antra® DP3+, Digital Solar Power Auto Darkening Welding Helmet",
         price: 144.00,
@@ -25,16 +37,40 @@ let products = [
         sale: 87.00
     },
     {
+        type: "helmets",
         SKU: "DP6-12",
         name: "Antra® DP6-12, Auto Darkening Welding Helmet",
         price: 97.00,
         img: "../resources/DP6-12.jpg"
     },
     {
+        type: "helmets",
         SKU: "AH7-860-6218",
         name: "Antra® AH7-860-6218, Welding Helmet",
         price: 108.00,
         img: "../resources/AH7-860-6218.jpg"
+    },
+    {
+        type: "gear",
+        SKU: "WGL-118",
+        name: "Antra™ Premium Leather Split Cowhide Welding Gloves with Cushion Liner",
+        price: 19.00,
+        img: "../resources/gloves.jpg",
+    },
+    {
+        type: "gear",
+        SKU: "PAPR",
+        name: "Antra® PAPR, Powered Air Purifying Respirator for Welding",
+        price: 1295.00,
+        img: "../resources/PAPR.jpg",
+        sale: 864.00
+    },
+    {
+        type: "gear",
+        SKU: "WGL-COMB",
+        name: "Combo of Welding Gloves for MIG, TIG, MMA",
+        price: 36.00,
+        img: "../resources/WGL-COMB.jpg",
     }
 ];
 
@@ -42,47 +78,89 @@ let products = [
 let productsContainer = document.querySelector(".products");
 let productsSection = document.querySelector(".products .product-list");
 
-//If no specific product is requested, show all products
+//If no specific product is requested, show all products (or filtered by type)
 if (!product) {
-    //Add header and product list container
-    productsContainer.innerHTML = `
-        <h2>OUR LATEST PRODUCTS</h2>
-        <hr class="header center">
-        <div class="product-list"></div>
-    `;
+    if (type) {
+        //Add header and product list container
+        productsContainer.insertAdjacentHTML("beforeend", `
+            <h2>${products.filter(p => p.type === type).length > 0 ? "SHOP " + type.toUpperCase() : "NO PRODUCTS FOUND"}</h2> <!-- Make sure there are products of that type -->
+            <hr class="header center">
+            <div class="product-list"></div>
+        `);
 
-    //Fill the product list with all the products
-    productsSection = document.querySelector(".products .product-list");    
-    products.forEach(product => {
-        productsSection.innerHTML += `
-            <div class="product-card">
-                <div class="product-image-container">
-                    ${product.sale ? `
-                        <img src="../resources/saletag.png" class="sale-badge">
-                        <p class="sale-text">${((product.price - product.sale) / product.price * 100).toFixed(0)}% off</p>
-                    ` : ""}
-                    <img class="product-image" src="${product.img}" alt="${product.name}">
+        productsSection = document.querySelector(".products .product-list");
+
+        products = products.filter(p => p.type === type); //Filter products by type if specified
+        products.forEach(product => {
+            if(product.type === type) {
+                productsSection.innerHTML += `
+                    <div class="product-card">
+                    <div class="product-image-container">
+                            ${product.sale ? `
+                                <img src="../resources/saletag.png" class="sale-badge">
+                                <p class="sale-text">${((product.price - product.sale) / product.price * 100).toFixed(0)}% off</p>
+                            ` : ""}
+                            <img class="product-image" src="${product.img}" alt="${product.name}">
+                        </div>
+
+                        <h5>${product.name}</h5><br><br>
+
+                        <div>
+                            ${product.sale ? `<h3>$${product.sale.toFixed(2)}</h3>` : ""}
+                            <h3 style="${product.sale ? 'color: grey; text-decoration: line-through; text-decoration-color: red;' : ''}">$${product.price.toFixed(2)}</h3>
+                        </div>
+                        
+                        <br>
+                        <hr class="header center accent1">
+                        <br>
+                        <button class="card-button accent2" onclick="window.location.href='./?product=${encodeURIComponent(product.SKU)}'">Shop Now</button>
+                    </div>
+                `
+            }
+        });
+        
+    } else {
+        //Add header and product list container
+        productsContainer.insertAdjacentHTML("beforeend", `
+            <h2>OUR LATEST PRODUCTS</h2>
+            <hr class="header center">
+            <div class="product-list"></div>
+        `);
+
+        productsSection = document.querySelector(".products .product-list");
+
+        //Fill the product list with all the products 
+        products.forEach(product => {
+            productsSection.innerHTML += `
+                <div class="product-card">
+                    <div class="product-image-container">
+                        ${product.sale ? `
+                            <img src="../resources/saletag.png" class="sale-badge">
+                            <p class="sale-text">${((product.price - product.sale) / product.price * 100).toFixed(0)}% off</p>
+                        ` : ""}
+                        <img class="product-image" src="${product.img}" alt="${product.name}">
+                    </div>
+
+                    <h5>${product.name}</h5><br><br>
+
+                    <div>
+                        ${product.sale ? `<h3>$${product.sale.toFixed(2)}</h3>` : ""}
+                        <h3 style="${product.sale ? 'color: grey; text-decoration: line-through; text-decoration-color: red;' : ''}">$${product.price.toFixed(2)}</h3>
+                    </div>
+                    
+                    <br>
+                    <hr class="header center accent1">
+                    <br>
+                    <button class="card-button accent2" onclick="window.location.href='./?product=${encodeURIComponent(product.SKU)}'">Shop Now</button>
                 </div>
-
-                <h5>${product.name}</h5><br><br>
-
-                <div>
-                    ${product.sale ? `<h3>$${product.sale.toFixed(2)}</h3>` : ""}
-                    <h3 style="${product.sale ? 'color: grey; text-decoration: line-through; text-decoration-color: red;' : ''}">$${product.price.toFixed(2)}</h3>
-                </div>
-                
-                <br>
-                <hr class="header center accent1">
-                <br>
-                <button class="card-button accent2" onclick="window.location.href='./?product=${encodeURIComponent(product.SKU)}'">Shop Now</button>
-            </div>
-        `
-    });
+            `
+        });
+    }
 } else{
     let selectedProduct = products.find(p => p.SKU === product); //Find product by SKU in the array
 
     //Find requested product and display its details
-    if (selectedProduct) {
+    if (selectedProduct !== undefined) {
         productsContainer.innerHTML = `
             <div class="horizontal-row">
                 <div class="row-item product-image-container shadow" style="flex-grow: 0.3;">
@@ -101,6 +179,6 @@ if (!product) {
             </div>
         `
     } else {
-        productsSection.innerHTML = `<h2>Product not found.</h2>`;
+        productsContainer.innerHTML = `<h2>Product not found.</h2>`;
     }
 }
