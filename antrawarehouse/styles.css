@@ -121,6 +121,7 @@ footer{
     box-sizing: border-box; /* So padding doesn't increase the width */
 }
 .product-image-container {
+    position: relative; /* So the sale badge can be positioned absolutely within this container */
     border-radius: 25px;
     background-color: white;
     padding: 60px;
@@ -134,6 +135,21 @@ footer{
     height: 400px;
     overflow: hidden;
 
+    z-index: 1; /* So it appears above the product card background */
+}
+.product-image-container .sale-badge, .product-image-container .sale-text {
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    border-radius: 0 0 10px 10px;
+    top: 0;
+    left: 20px;
+    font-size: 1.2rem;
+
+    width: 20%;
+    height: 25%;
+
+    z-index: 99; /* So it appears above the image */
 }
 .product-card h5 {
     margin: 0 30px;
@@ -150,6 +166,7 @@ footer{
     object-fit: contain; /* keep aspect ratio, fill available height */
     margin: 0 auto;
 }
+
 
 /* Section cards (key points about the website) */
 
