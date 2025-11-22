@@ -82,9 +82,13 @@ let productsSection = document.querySelector(".products .product-list");
 if (!product) {
     if (type) {
         //Add header and product list container
-        productsContainer.insertAdjacentHTML("beforeend", `
+        productsContainer.insertAdjacentHTML("afterbegin", `
             <h2>${products.filter(p => p.type === type).length > 0 ? "SHOP " + type.toUpperCase() : "NO PRODUCTS FOUND"}</h2> <!-- Make sure there are products of that type -->
             <hr class="header center">
+        `);
+
+        //Create product list container after the filter dropdown
+        productsContainer.insertAdjacentHTML("beforeend", `
             <div class="product-list"></div>
         `);
 
@@ -121,9 +125,13 @@ if (!product) {
         
     } else {
         //Add header and product list container
-        productsContainer.insertAdjacentHTML("beforeend", `
+        productsContainer.insertAdjacentHTML("afterbegin", `
             <h2>OUR LATEST PRODUCTS</h2>
             <hr class="header center">
+        `);
+
+        //Create product list container after the filter dropdown
+        productsContainer.insertAdjacentHTML("beforeend", `
             <div class="product-list"></div>
         `);
 
@@ -164,6 +172,8 @@ if (!product) {
         productsContainer.innerHTML = `
             <div class="horizontal-row">
                 <div class="row-item product-image-container shadow" style="flex-grow: 0.3;">
+                    <img src="../resources/saletag.png" class="sale-badge" style="${selectedProduct.sale ? '' : 'display: none;'}">
+                    <p class="sale-text" style="${selectedProduct.sale ? '' : 'display: none;'}">${((selectedProduct.price - selectedProduct.sale) / selectedProduct.price * 100).toFixed(0)}% off</p>
                     <img class="detailed-product-image" src="${selectedProduct.img}" alt="${selectedProduct.name}">
                 </div>
                 <div class="vertical-column row-item" style="text-align: left; flex-grow: 0.5; justify-content: space-between;">
@@ -172,7 +182,10 @@ if (!product) {
                         <hr class="header left accent2">
                     </div>
                     <div>
-                        <h4>$${selectedProduct.price.toFixed(2)}</h4>
+                        <div class="horizontal-row" style="justify-content: flex-start; align-items: center; gap: 20px;">
+                            ${selectedProduct.sale ? `<h4>$${selectedProduct.sale.toFixed(2)}</h4>` : ""}
+                            <h4 style="${selectedProduct.sale ? 'color: grey; text-decoration: line-through; text-decoration-color: red;' : ''}">$${selectedProduct.price.toFixed(2)}</h4>
+                        </div>
                         <button class="card-button accent1" onclick="alert('Added to cart!')">Add to Cart</button>
                     </div>
                 </div>
