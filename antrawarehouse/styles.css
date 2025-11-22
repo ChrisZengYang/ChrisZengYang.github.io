@@ -64,6 +64,7 @@ nav ul li img{
 
 /* Landing section */
 #landing-page, .landing {
+    margin-top: 94px; /* So the nav bar doesn't cover the landing page content */
     width: 100%;
     height: 900px;
 }
@@ -73,7 +74,7 @@ nav ul li img{
 }
 .landing {
     box-sizing: border-box; /* Ensure padding also is fitted into the 100% */
-    padding: 150px 200px;
+    padding: 250px 200px;
 
     margin-bottom: 100px;
 }
@@ -92,6 +93,48 @@ nav ul li img{
     overflow: hidden;
     width: 50%;
 }
+
+/* Contact page */
+.social-media {
+    text-align: center;
+    margin-top: 200px;
+    width: 100%;
+}
+.social-media-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;;
+    width: 80%;
+    padding: 0;
+
+    margin: 100px auto;
+
+    list-style-type: none;
+    text-align: center;
+}
+.social-media-list li{
+    background-color: #15141f;
+    border-radius: 15px;
+
+    padding: 80px;
+
+    margin: 50px;
+
+    animation: fadeIn 1s ease forwards;
+}
+.social-media-list button {
+    margin-top: 100px;
+    padding: 20px 50px;
+}
+.social-media-list img {
+    width: 100px;
+    height: 100px;
+
+    border-radius: 100%;
+}
+
+/* footer */
 footer{
     background-color: #0f0d1c;
 
@@ -346,6 +389,8 @@ h1{ /* Main headings */
 
 h2{ /* Subheadings */
     font-size: 3rem;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: lighter;
 }
 
 h3 { /* Subsubheadings */

@@ -32,24 +32,27 @@
     </nav>
 
     <!-- Products section will be dynamically inserted here depending if a specific product is requested -->
-    <section class="products">
-        <div class="filter" style="margin-top: 50px;">
-            <h4 style="display: inline-block; margin-right: 50px;">Filter by:</h4>
-            <select class="filter" onchange="window.location.href=`./${this.value !== 'all' ? '?type=' + this.value : ''}`;">
-                <option value="all">All Products</option>
-                <option value="helmets">Welding Helmets</option>
-                <option value="gear">Welding Protective Gear</option>
-            </select>
-        </div>
-        <script>
-            function defaultSelect() {
-                let type = new URLSearchParams(window.location.search).get('type') || 'all';
-                //Set the select value based on URL parameter
-                document.querySelector('.products select').value = type;
-            };
+    <section class="social-media">
+        <h2>Our Social Media</h2>
+        <hr class="center" style="width: 30%;">
 
-            defaultSelect();
-        </script>
+        <ul class="social-media-list">
+            <li>
+                <a href="https://www.facebook.com/antrawarehouse/" target="_blank"><img src="../resources/Facebook.png" alt="Facebook Logo"></a>
+                <p>Facebook</p>
+                <a href="https://www.facebook.com/antrawarehouse/" target="_blank"><button class="transparent">Visit</button></a>
+            </li>
+            <li>
+                <a href="https://www.instagram.com/antraproducts/?hl=en" target="_blank"><img src="../resources/Instagram.png" alt="Instagram Logo"></a>
+                <p>Instagram</p>
+                <a href="https://www.instagram.com/antraproducts/?hl=en" target="_blank"><button class="transparent">Visit</button></a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@antra3505" target="_blank"><img src="../resources/YouTube.png" alt="YouTube Logo"></a>
+                <p>YouTube</p>
+                <a href="https://www.youtube.com/@antra3505" target="_blank"><button class="transparent">Visit</button></a>
+            </li>
+        </ul>
     </section>
 
     <footer>
@@ -91,12 +94,9 @@
         </div>
         <center>Antra Warehouse 2025&copy;</center>
     </footer>
+
+    <!-- Dynamic link highlighting for nav -->
+    <script src="../script.js"></script>
 </body>
-
-<!-- Dynamic link highlighting for nav -->
-<script src="../script.js"></script>
-
-<!-- Products loading script -->
-<script src="../products.js"></script>
 
 </html>

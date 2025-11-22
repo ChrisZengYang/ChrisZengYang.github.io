@@ -1,3 +1,29 @@
+//Align Product Card Components to each other
+function alignProductCards() {
+    let productCards = document.querySelectorAll(".product-card");
+    const numOfChildren = productCards[0].children.length;
+
+    if(!productCards.length) return; // No product cards found
+
+    for(let i = 0; i < numOfChildren; i++) {
+        let maxHeight = 0;
+
+        //Find the max height of this child index
+        productCards.forEach(card => {
+            const child = card.children[i];
+            if(child.offsetHeight > maxHeight) {
+                maxHeight = child.offsetHeight;
+            }
+        });
+        console.log(maxHeight)
+
+        productCards.forEach(card => {
+            const child = card.children[i];
+            child.style.height = maxHeight + "px";
+        });
+    }
+}
+
 //Extract product name from URL
 let urlParams = new URLSearchParams(window.location.search);
 let product = urlParams.get('product');
@@ -123,6 +149,7 @@ if (!product) {
             }
         });
         
+        alignProductCards();
     } else {
         //Add header and product list container
         productsContainer.insertAdjacentHTML("afterbegin", `
@@ -163,6 +190,8 @@ if (!product) {
                 </div>
             `
         });
+        
+        alignProductCards();
     }
 } else{
     let selectedProduct = products.find(p => p.SKU === product); //Find product by SKU in the array
