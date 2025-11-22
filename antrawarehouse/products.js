@@ -170,7 +170,8 @@ if (!product) {
     //Find requested product and display its details
     if (selectedProduct !== undefined) {
         productsContainer.innerHTML = `
-            <div class="horizontal-row">
+            <a href="./"><button class="transparent" style="float: left; font-size: 1rem; margin-bottom: 50px;">&larr; Back to Products</button></a>
+            <div class="horizontal-row" style="clear: left;">
                 <div class="row-item product-image-container shadow" style="flex-grow: 0.3;">
                     <img src="../resources/saletag.png" class="sale-badge" style="${selectedProduct.sale ? '' : 'display: none;'}">
                     <p class="sale-text" style="${selectedProduct.sale ? '' : 'display: none;'}">${((selectedProduct.price - selectedProduct.sale) / selectedProduct.price * 100).toFixed(0)}% off</p>

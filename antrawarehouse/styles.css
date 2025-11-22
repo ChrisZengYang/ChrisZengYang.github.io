@@ -283,6 +283,18 @@ img.accent2, hr.accent2 {
     border-color: #47a73c;
 }
 
+.transparent { /* Transparent background, white border */
+    background-color: transparent;
+    border: 2px solid white;
+
+    border-radius: 0;
+
+    transition: background-color 0.5s ease;
+}
+.transparent:hover{
+    background-color: rgb(255, 255, 255, 0.5);
+}
+
 .border { /* Elements with a border */
     border: 4px solid white;
 }
