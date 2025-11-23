@@ -237,6 +237,8 @@ footer{
     width: auto;
     object-fit: contain; /* keep aspect ratio, fill available height */
     margin: 0 auto;
+
+    animation: fadeIn 1s ease forwards;
 }
 
 

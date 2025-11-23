@@ -12,7 +12,7 @@ navLinks.forEach(link => {
 
 //Add cool fade-in effect to landing page headers
 function fadeInOnScroll() {
-    const elements = document.querySelectorAll('.product-card, h1, .card *, p'); // Elements to apply fade-in effect
+    const elements = document.querySelectorAll('.product-card, h1, h2, h3, h4, p, .card *'); // Elements to apply fade-in effect
     elements.forEach(element => {
         const rect = element.getBoundingClientRect();
         
