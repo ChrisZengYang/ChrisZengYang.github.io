@@ -32,7 +32,7 @@ let type = urlParams.get('type');
 // Product list
 let products = [
     {
-        type: "helmets",
+        type: "helmets", //Product Type
         SKU: "DP8-G", //Product Code
         name: "Antra® DP8-G, Auto Shading & Darkening Welding Helmet", //Product Name
         price: 199.00, //Product Price
