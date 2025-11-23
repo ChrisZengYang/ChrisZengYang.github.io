@@ -49,8 +49,21 @@ nav ul li{ /* Each nav item */
     justify-content: center;
     text-align: center;
 }
+/* make the <a> fill the <li> so the whole item is clickable */
+nav ul li {
+    padding: 0;
+
+    transition: background-color 0.5s ease;
+}
+nav ul li:hover {
+    background-color: #292748;
+    cursor: pointer;
+}
 nav ul li a{
-    padding: auto; /* So the clickable area fills the entire nav item */
+    padding: 30px;
+    box-sizing: border-box; /* So padding doesn't overflow the anchor */
+    width: 100%;
+    height: 100%;
 }
 nav ul li.brand {
     margin: 0 auto 0 0; /* Pushes the logo to the left side */
