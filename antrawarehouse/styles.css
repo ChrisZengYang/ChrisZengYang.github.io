@@ -191,8 +191,6 @@ footer{
 
     width: 25%;
     box-sizing: border-box; /* So padding doesn't increase the width */
-
-    animation: fadeIn 1s ease forwards;
 }
 .product-image-container {
     position: relative; /* So the sale badge can be positioned absolutely within this container */
@@ -239,8 +237,6 @@ footer{
     width: auto;
     object-fit: contain; /* keep aspect ratio, fill available height */
     margin: 0 auto;
-
-    animation: fadeIn 1s ease forwards;
 }
 
 
