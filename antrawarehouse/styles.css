@@ -79,7 +79,7 @@ nav ul li img{
 
 /* Landing section */
 #landing-page, .landing {
-    margin-top: 94px; /* So the nav bar doesn't cover the landing page content */
+    margin-top: 44px; /* So the nav bar doesn't cover the landing page content */
     width: 100%;
     height: 900px;
 }
@@ -89,7 +89,7 @@ nav ul li img{
 }
 .landing {
     box-sizing: border-box; /* Ensure padding also is fitted into the 100% */
-    padding: 250px 200px;
+    padding: 175px 200px;
 
     margin-bottom: 100px;
 }
