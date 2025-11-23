@@ -126,7 +126,7 @@ if (!product) {
                     <div class="product-card">
                     <div class="product-image-container">
                             ${product.sale ? `
-                                <img src="../resources/saletag.png" class="sale-badge">
+                                <img src="../resources/saletag.png" alt="Sale Badge" class="sale-badge">
                                 <p class="sale-text">${((product.price - product.sale) / product.price * 100).toFixed(0)}% off</p>
                             ` : ""}
                             <img class="product-image" src="${product.img}" alt="${product.name}">
@@ -169,7 +169,7 @@ if (!product) {
                 <div class="product-card">
                     <div class="product-image-container">
                         ${product.sale ? `
-                            <img src="../resources/saletag.png" class="sale-badge">
+                            <img src="../resources/saletag.png" alt="Sale Badge" class="sale-badge">
                             <p class="sale-text">${((product.price - product.sale) / product.price * 100).toFixed(0)}% off</p>
                         ` : ""}
                         <img class="product-image" src="${product.img}" alt="${product.name}">
@@ -201,7 +201,7 @@ if (!product) {
             <a href="./"><button class="transparent" style="float: left; font-size: 1rem; margin-bottom: 50px;">&larr; Back to Products</button></a>
             <div class="horizontal-row" style="clear: left;">
                 <div class="row-item product-image-container shadow" style="flex-grow: 0.3;">
-                    <img src="../resources/saletag.png" class="sale-badge" style="${selectedProduct.sale ? '' : 'display: none;'}">
+                    <img src="../resources/saletag.png" alt="Sale Badge" class="sale-badge" style="${selectedProduct.sale ? '' : 'display: none;'}">
                     <p class="sale-text" style="${selectedProduct.sale ? '' : 'display: none;'}">${((selectedProduct.price - selectedProduct.sale) / selectedProduct.price * 100).toFixed(0)}% off</p>
                     <img class="detailed-product-image" src="${selectedProduct.img}" alt="${selectedProduct.name}">
                 </div>
