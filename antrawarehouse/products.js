@@ -143,7 +143,7 @@ if (!product) {
                         <br>
                         <hr class="header center accent1">
                         <br>
-                        <button class="card-button accent2" onclick="window.location.href='./?product=${encodeURIComponent(product.SKU)}'">Shop Now</button>
+                        <a href="./?product=${encodeURIComponent(product.SKU)}"><button class="card-button accent2">Shop Now</button></a>
                     </div>
                 `
             }
@@ -186,7 +186,7 @@ if (!product) {
                     <br>
                     <hr class="header center accent1">
                     <br>
-                    <button class="card-button accent2" onclick="window.location.href='./?product=${encodeURIComponent(product.SKU)}'">Shop Now</button>
+                    <a href="./?product=${encodeURIComponent(product.SKU)}"><button class="card-button accent2">Shop Now</button></a>
                 </div>
             `
         });
