@@ -1,4 +1,4 @@
-//Align Product Card Components to each other
+//Align Product Card Components to each other so it doesn't look bad
 function alignProductCards() {
     let productCards = document.querySelectorAll(".product-card");
     const numOfChildren = productCards[0].children.length;
@@ -222,6 +222,7 @@ if (!product) {
             </div>
         `
     } else {
+        //Display a message if the product is not found
         productsContainer.innerHTML = `<h2>Product not found.</h2>`;
     }
 }

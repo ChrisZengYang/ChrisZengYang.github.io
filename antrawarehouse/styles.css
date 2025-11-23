@@ -1,12 +1,11 @@
 /* Animation */
 
-@keyframes fadeIn {
+@keyframes fadeIn { /* Fade-in animation for product cards and images */
     0% { opacity: 0; transform: translateY(20px); }
     100% { opacity: 1; transform: translateY(0); }
 }
 
 /* Block-level elements */
-
 body{
     background-color: black;
     color: white;
@@ -39,7 +38,7 @@ nav ul{
 
     list-style-type: none;
 }
-nav ul li{
+nav ul li{ /* Each nav item */
     padding: 20px;
     width: 10%;
     align-items: stretch; /* So the clickable area fills the entire nav item */
@@ -53,11 +52,11 @@ nav ul li{
 nav ul li.brand {
     margin: 0 auto 0 0; /* Pushes the logo to the left side */
 }
-nav ul li.active-link {
+nav ul li.active-link { /* The currently active page link */
     background-color: #39346b;
 }
 nav ul li img{
-    width: auto;
+    width: auto; /* Maintain aspect ratio */
     height: 50px;
     object-fit: contain; /* Prevent image distortion, because flex destroys the aspect ratio 😭 */
 }
@@ -127,7 +126,7 @@ nav ul li img{
     margin-top: 100px;
     padding: 20px 50px;
 }
-.social-media-list img {
+.social-media-list img { /* Social media icons */
     width: 100px;
     height: 100px;
 
@@ -196,7 +195,7 @@ footer{
 
     z-index: 1; /* So it appears above the product card background */
 }
-.product-image-container .sale-badge, .product-image-container .sale-text {
+.product-image-container .sale-badge, .product-image-container .sale-text { /* Sale badge on top-left of product image */
     position: absolute;
     color: white;
     font-weight: bold;
@@ -218,7 +217,7 @@ footer{
     margin-top: 20px;
     font-size: 1.2rem;
 }
-.product-image,.detailed-product-image {
+.product-image,.detailed-product-image { /* Product images */
     display: block;
     max-height: 100%;
     width: auto;
@@ -231,14 +230,14 @@ footer{
 
 /* Section cards (key points about the website) */
 
-section.card {
+section.card { /* Section cards */
     padding: 100px;
 }
-section.card h1 {
+section.card h1 { /* Section card headings */
     font-size: 3rem;
 }
 
-#footer-info {
+#footer-info { /* Footer information section */
     margin-bottom: 70px;
 }
 #footer-info ul {
@@ -257,22 +256,22 @@ section.card h1 {
 }
 
 /* General block elements */
-/* Horizontal rules */
-hr{
+
+hr{ /* Horizontal rules - the horizontal bar thingies you see under headings */
     border: 2px solid;
     color: white;
 }
-hr.header {
+hr.header { /* Horizontal rule for headers */
     width: 20%;
 }
-hr.left {
+hr.left { /* Horizontal rule aligned to the left */
     margin-inline-start: 0;
 }
-hr.center {
+hr.center { /* Horizontal rule centered */
     margin-inline-start: auto;
     margin-inline-end: auto;
 }
-hr.right {
+hr.right { /* Horizontal rule aligned to the right */
     margin-inline-end: 0;
 }
 
@@ -288,16 +287,17 @@ button{
 
     transition: background-color 0.5s ease;
 }
-button:hover {
+button:hover { /* Button hover state */
     cursor: pointer;
 }
-button:hover.accent1 {
+button:hover.accent1 { /* Orange */
     background-color: #ce6e00;
 }
-button:hover.accent2 {
+button:hover.accent2 { /* Green */
     background-color: #107a05;
 }
 
+/* Select dropdowns (product filters) */
 select{
     border: 2px solid white;
     color: white;
