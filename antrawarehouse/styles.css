@@ -49,6 +49,9 @@ nav ul li{ /* Each nav item */
     justify-content: center;
     text-align: center;
 }
+nav ul li a{
+    padding: auto; /* So the clickable area fills the entire nav item */
+}
 nav ul li.brand {
     margin: 0 auto 0 0; /* Pushes the logo to the left side */
 }
