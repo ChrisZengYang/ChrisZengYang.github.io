@@ -15,7 +15,6 @@ function alignProductCards() {
                 maxHeight = child.offsetHeight;
             }
         });
-        console.log(maxHeight)
 
         productCards.forEach(card => {
             const child = card.children[i];
