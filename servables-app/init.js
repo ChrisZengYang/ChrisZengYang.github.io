@@ -1,7 +1,7 @@
 let host;
 
 if(window.location.protocol === "file:") {
-    host = "file://" + "C:/users/chris%20yang/source/repos/ChrisZengYang.github.io/servables%20app";
+    host = "file://" + "C:/users/chris%20yang/source/repos/ChrisZengYang.github.io/servables-app";
 } else{
     host = window.location.protocol + "//" + window.location.hostname + "/servables-app";
 }
