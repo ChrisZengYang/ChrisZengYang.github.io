@@ -17,8 +17,8 @@ const nav = `
             </li>
         </ul>
         <ul class="right">
-            <button onclick="window.location.href='${host}/sign-up/'">Sign Up</button>
-            <button class="accent1" onclick="window.location.href='${host}/log-in/'">Log In</button>
+            <button onclick="window.location='${host}/sign-up/'">Sign Up</button>
+            <button class="accent1" onclick="window.location='${host}/log-in/'">Log In</button>
         </ul>
     </nav>
 `;
