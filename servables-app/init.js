@@ -3,7 +3,7 @@ let host;
 if(window.location.protocol === "file:") {
     host = "file://" + "C:/users/chris%20yang/source/repos/ChrisZengYang.github.io/servables%20app";
 } else{
-    host = window.location.hostname;
+    host = window.location.hostname + "/servables-app/";
 }
 
 const nav = `
