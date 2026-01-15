@@ -17,17 +17,19 @@
             </h1>
 
             <div class="container">
-                <div class="input">
-                    <img class="input-icon" src="../resources/user-64.png" alt="key icon" style="width: 32px;">
-                    <input id="username" placeholder="Username"><br>
-                </div>
-                <div class="input">
-                    <img class="input-icon" src="../resources/key-64.png" alt="key icon" style="width: 32px;">
-                    <input id="password" type="password" placeholder="Password"><br>
-                </div>
-                <button type="submit" onclick="alert('Logged in!');">Log In</button>
+                <form action="../dashboard/">
+                    <div class="input">
+                        <img class="input-icon" src="../resources/user-64.png" alt="key icon" style="width: 32px;">
+                        <input id="username" placeholder="Username"><br>
+                    </div>
+                    <div class="input">
+                        <img class="input-icon" src="../resources/key-64.png" alt="key icon" style="width: 32px;">
+                        <input id="password" type="password" placeholder="Password"><br>
+                    </div>
+                    <button type="submit" onclick="alert('Logged in!');">Log In</button>
 
-                <small>Don't have an account? <a href="../">Sign Up!</a></small>
+                    <small>Don't have an account? <a href="../">Sign Up!</a></small>
+                </form>
             </div>
         </section>
     </main>
