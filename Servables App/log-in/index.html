@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servables - Welcome</title>
+    <link rel="stylesheet" href="../styles.css">
+
+    <!-- Mobile Friendly Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <main>
+        <section style="margin: 100px 0;">
+            <h1 style="text-align: center; font-size: 3rem; font-weight: 900;">
+                Log In
+            </h1>
+
+            <div class="container">
+                <div class="input">
+                    <img class="input-icon" src="../resources/user-64.png" alt="key icon" style="width: 32px;">
+                    <input id="username" placeholder="Username"><br>
+                </div>
+                <div class="input">
+                    <img class="input-icon" src="../resources/key-64.png" alt="key icon" style="width: 32px;">
+                    <input id="password" type="password" placeholder="Password"><br>
+                </div>
+                <button type="submit" onclick="alert('Logged in!');">Log In</button>
+
+                <small>Don't have an account? <a href="../">Sign Up!</a></small>
+            </div>
+        </section>
+    </main>
+
+    <script src="../init.js"></script>
+    <script>
+        const c = document.querySelector('canvas');
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = "white";
+
+        let nodes = [];
+
+        function drawNodes() {
+            nodes = [];
+            for(let i = 0; i < 10; i++) {
+                nodes.push({
+                    x: 5 + Math.random() * (c.width - 10),
+                    y: 5 + Math.random() * (c.height - 10),
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5
+                });
+            }
+        }
+
+        // Handle canvas resizing so the animation doesn't overflow
+        const resizeCanvas = new ResizeObserver(() => {
+            const rect = c.getBoundingClientRect();
+
+            const dpr = window.devicePixelRatio || 1;
+            ctx.scale(dpr, dpr);
+            c.width = rect.width * dpr;
+            c.height = rect.height * dpr;
+            
+            drawNodes();
+        });
+
+        resizeCanvas.observe(c);
+            
+        function animate() {
+            ctx.clearRect(0, 0, c.width, c.height); //Reset canvas
+            for(let i = 0; i < nodes.length; i++) {
+                nodes[i].x += nodes[i].vx;
+                nodes[i].y += nodes[i].vy;
+
+                // Limit speed
+                const speedLimit = 1;
+                nodes[i].vx = Math.max(-speedLimit, Math.min(speedLimit, nodes[i].vx));
+                nodes[i].vy = Math.max(-speedLimit, Math.min(speedLimit, nodes[i].vy));
+            }
+
+            for(let i = 0; i < nodes.length; i++) {
+                ctx.beginPath();
+                ctx.fillStyle = "white";
+                ctx.arc(nodes[i].x, nodes[i].y, 6, 0, Math.PI * 2);
+                ctx.fill();
+
+                for(let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if(distance < 200) {
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / 200})`;
+                        ctx.stroke();
+                    }
+                }
+
+                if(nodes[i].x <= 0 || nodes[i].x >= c.width) nodes[i].vx *= -1;
+                if(nodes[i].y <= 0 || nodes[i].y >= c.height) nodes[i].vy *= -1;
+            }
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>

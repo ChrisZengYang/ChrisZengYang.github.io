@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servables - Welcome</title>
+    <link rel="stylesheet" href="../styles.css">
+
+    <!-- Mobile Friendly Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <main>
+        <div style="margin: 100px 0; display: flex; justify-content: center;">
+            <div class="login-background" style="background-image: linear-gradient(90deg, #1a0a39, #220082); text-align: center;">
+                <canvas class="nodes"></canvas>
+                <h1 style="font-size: 3rem; font-weight: 900;">
+                    WELCOME!<br>
+                    LET'S GET STARTED!
+                </h1>
+            </div>
+            
+            <div class="overlay">
+            </div>
+        </div>
+
+        <div class="container">
+            <form id="sign-up">
+                <div class="input">
+                    <img class="input-icon" src="../resources/email-64.png" alt="key icon" style="width: 32px;">
+                    <input id="email" type="email" placeholder="Email" required><br>
+                    <span class="error-message" id="email-error"></span>
+                </div>
+                <div class="input">
+                    <img class="input-icon" src="../resources/user-64.png" alt="key icon" style="width: 32px;">
+                    <input id="username" placeholder="Username" required><br>
+                    <span class="error-message" id="username-error"></span>
+                </div>
+                <div class="input">
+                    <img class="input-icon" src="../resources/key-64.png" alt="key icon" style="width: 32px;">
+                    <input id="password" type="password" placeholder="Password" required><br>   
+                    <span class="error-message" id="password-error"></span>
+                </div>  
+                <div class="input">
+                    <img class="input-icon" src="../resources/key-64.png" alt="key icon" style="width: 32px;">
+                    <input id="confirm-password" type="password" placeholder="Confirm Password" required><br>
+                    <span class="error-message" id="confirm-password-error"></span>
+                </div>
+                <button type="submit">Sign Up</button>
+            </form>
+
+            <small>Already have an account? <a href="../log-in/">Log In</a></small>
+        </div>
+    </main>
+
+    <script src="../init.js"></script>
+    <script>
+        const c = document.querySelector('canvas');
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = "white";
+
+        let nodes = [];
+
+        function drawNodes() {
+            nodes = [];
+            for(let i = 0; i < 10; i++) {
+                nodes.push({
+                    x: 5 + Math.random() * (c.width - 10),
+                    y: 5 + Math.random() * (c.height - 10),
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5
+                });
+            }
+        }
+
+        // Handle canvas resizing so the animation doesn't overflow
+        const resizeCanvas = new ResizeObserver(() => {
+            const rect = c.getBoundingClientRect();
+
+            const dpr = window.devicePixelRatio || 1;
+            ctx.scale(dpr, dpr);
+            c.width = rect.width * dpr;
+            c.height = rect.height * dpr;
+            
+            drawNodes();
+        });
+
+        resizeCanvas.observe(c);
+            
+        function animate() {
+            ctx.clearRect(0, 0, c.width, c.height); //Reset canvas
+            for(let i = 0; i < nodes.length; i++) {
+                nodes[i].x += nodes[i].vx;
+                nodes[i].y += nodes[i].vy;
+
+                // Limit speed
+                const speedLimit = 1;
+                nodes[i].vx = Math.max(-speedLimit, Math.min(speedLimit, nodes[i].vx));
+                nodes[i].vy = Math.max(-speedLimit, Math.min(speedLimit, nodes[i].vy));
+            }
+
+            for(let i = 0; i < nodes.length; i++) {
+                ctx.beginPath();
+                ctx.fillStyle = "white";
+                ctx.arc(nodes[i].x, nodes[i].y, 6, 0, Math.PI * 2);
+                ctx.fill();
+
+                for(let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if(distance < 200) {
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / 200})`;
+                        ctx.stroke();
+                    }
+                }
+
+                if(nodes[i].x <= 0 || nodes[i].x >= c.width) nodes[i].vx *= -1;
+                if(nodes[i].y <= 0 || nodes[i].y >= c.height) nodes[i].vy *= -1;
+            }
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        
+        const form = document.querySelector("form#sign-up");
+
+        const email = form.querySelector("input#email");
+        const username = form.querySelector("input#username");
+
+        const fields = form.querySelectorAll(".input > input");
+
+        const customRules = {
+            "username": [
+                {
+                    check: () => true,
+                    message: "Username validation coming soon!",
+                }, //Placeholder for future rules
+            ],
+            "password": [
+                {
+                    check: (value) => value.length >= 8,
+                    message: "Password must be at least 8 characters long.",
+                },
+                {
+                    check: (value) => /[A-Z]/.test(value),
+                    message: "Password must contain at least one uppercase letter.",
+                },
+                {
+                    check: (value) => /[a-z]/.test(value),
+                    message: "Password must contain at least one lowercase letter.",
+                },
+                {
+                    check: (value) => /[0-9]/.test(value),
+                    message: "Password must contain at least one number.",
+                }
+            ],
+            "confirm-password": [
+                {
+                    check: (value) => value === form.querySelector("input#password").value,
+                    message: "Passwords do not match.",
+                }
+            ],
+        };
+        
+        fields.forEach(field => {
+            field.addEventListener("invalid", (e) => {
+                e.preventDefault(); //Prevent default browser error message
+                validate(field);
+            });
+            field.addEventListener("input", () => {
+                validate(field);
+            });
+        });
+
+        function validate(field) {
+            //Reset error message
+            let errorMessage = "";
+
+            if(!field.validity.valid) {
+                //Browser handles basic validation messages
+                errorMessage = field.validationMessage;
+                console.log(errorMessage);
+            } else{
+                //Custom validation
+                const rules = customRules[field.id];
+                if(rules) {
+                    //Iterate through my custom rules
+                    for(const rule of rules) { //Use reverse to priortize first rules; make sure to use SPREAD OPERATOR to prevent mutating arrays
+                        if(!rule.check(field.value)) {
+                            errorMessage = rule.message;
+                            break;                            
+                        }
+                    }
+                }
+            }
+
+            const errorSpan = document.getElementById(`${field.id}-error`);
+            
+            if(errorSpan) {
+                errorSpan.textContent = errorMessage;
+                
+                if(errorMessage === "") {
+                    console.log("Removing error message");
+                    errorSpan.remove();
+                    return;
+                }
+            } else {
+                const error = document.createElement("span");
+                error.className = "error-message";
+                error.id = `${field.id}-error`;
+                error.textContent = errorMessage;
+
+                field.insertAdjacentElement("afterend", error);
+            }
+        };
+    
+    </script>
+</body>
+</html

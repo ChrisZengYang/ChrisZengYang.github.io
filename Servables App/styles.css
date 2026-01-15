@@ -1,0 +1,261 @@
+/* Element styles */
+body {
+    background-color: #000c1b;
+    color: white;
+
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 0;
+}
+
+input {
+    background-color: #51525d;
+    color: white;
+    font-size: 1.5rem;
+    margin: 20px 0;
+    padding: 30px;
+
+    box-sizing: border-box;
+
+    border: none;
+    border-radius: 23px;
+}
+
+a{
+    color: white;
+}
+
+nav {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    background-color: #0f2452;
+    padding: 20px 50px;
+
+    font-weight: bold;
+}
+nav ul {
+    list-style-type: none;
+
+    margin: 0 20px;
+}
+nav ul.left {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+nav ul.right {
+    flex-grow: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+nav ul li{
+    flex-shrink: 1;
+    text-align: center;
+}
+nav ul li a{
+    font-size: 1.25rem;
+}
+nav ul li img{
+    height: 30px;
+}
+nav ul li p {
+    font-size: 0.75rem;
+    margin: 10px 0 0;
+}
+
+section {
+    padding: 100px;
+    text-align: center;
+}
+
+h1{
+    font-size: 3rem;
+}
+h2{
+    font-size: 2.5rem;
+}
+
+/* Removes the outline when an input receives focus via mouse click, but keeps it for keyboard navigation */
+input:focus {
+    outline: none;
+}
+
+button{
+    background-color: #00bf63;
+    width: 100%;
+    font-size: 1.5rem;
+    /* Prevent text wrapping in buttons */
+    white-space: nowrap; 
+
+    padding: 20px;
+    border-radius: 23px;
+    border: none;
+
+    box-sizing: border-box;
+
+    margin-bottom: 20px;
+
+    color: white;
+
+    transition: background-color 0.3s ease;
+}
+button:hover {
+    background-color: #00a34e;
+    cursor: pointer;
+}
+
+nav button{
+    font-size: 1rem;
+    margin: 0 40px;
+}
+button.accent1{
+    background-color: #5b8fff;
+}
+
+/* Webkit */
+
+::-webkit-input-placeholder {
+    color: white;
+    opacity: 1;
+}
+
+/* Classes */
+
+.logo{
+    height: 50px;
+}
+
+.landing {
+    background-image: linear-gradient(135deg, #04003a, #2f374c);
+    text-align: center;
+    padding: 200px;
+    margin: 0;
+}
+.landing h1{
+    font-size: 5rem;
+}
+
+.circle {
+    background-color: black;
+    border: 2px solid white;
+    border-radius: 100%;
+    padding: 5px;
+}
+.nodes{
+    width: 100%;
+    height: auto;
+}
+
+.overlay {
+    position: absolute;
+}
+
+.center {
+    margin: auto;
+}
+
+.login-background {
+    width: 500px;
+    margin: 0 400px;
+    padding: 100px;
+
+    border-radius: 23px;
+}
+
+.container{
+    width: 500px;
+    border: 4px solid white;
+    border-radius: 23px;
+    padding: 100px;
+    margin: 50px auto;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    background-color: #51525d;
+    border-radius: 23px;
+
+    margin-bottom: 20px;
+    padding: 0 30px;
+}
+.input-icon {
+    display: inline-block;
+}
+.input input {
+    display: inline-block;
+    margin: 0;
+
+    width: 100%;
+}
+.input.invalid {
+    border: 2px solid red;
+}
+.input.valid {
+    border: 2px solid green;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+}
+
+
+ul.options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    list-style-type: none;
+}
+.options li {
+    margin: 25px;
+    width: 100%;
+}
+.options li a {
+    text-align: left;
+    display: flex;
+    background-color: #264bae;
+
+    border-radius: 200px;
+    padding: 30px 50px;
+
+    transition: background 0.5s ease, transform 0.5s ease;
+
+    text-decoration: none;
+}
+.options li a:hover{
+    cursor: pointer;
+    background-color: #1842b4;
+    transform: translate(0, -20px);
+}
+.options li a > div {
+    flex: 1;
+    padding: 0 20px;
+}
+.options li a > div h2 {
+    margin-top: 0;
+}
+.options li a > div p {
+    margin-bottom: 0;
+}
+.options li a .imgcontainer {
+    flex: 0;
+    display: flex;
+    align-items: center;
+}
+.options li a .imgcontainer img {
+    width: 100px;
+    box-sizing: border-box;
+}
+
+ul.bubbled-list li {
+    background-color: #131313;
+    padding: 50px;
+    border-radius: 50px;
+
+    margin: 50px;
+}
