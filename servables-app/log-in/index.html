@@ -17,7 +17,7 @@
             </h1>
 
             <div class="container">
-                <form action="../dashboard/">
+                <form action="../dashboard/" onsubmit="return logIn(event);">
                     <div class="input">
                         <img class="input-icon" src="../resources/user-64.png" alt="key icon" style="width: 32px;">
                         <input id="username" placeholder="Username"><br>
@@ -106,6 +106,35 @@
             requestAnimationFrame(animate);
         }
         animate();
+    </script>
+    <script>
+        function logIn(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            
+            const accounts = JSON.parse(localStorage.getItem("accounts")) || {};
+            
+            console.log(accounts);
+
+            // Check if account exists
+            if(!accounts[username]) {
+                alert("Username not found!");
+                return false;
+            }
+            
+            // Check if password matches
+            if(accounts[username].password !== password) {
+                alert("Invalid password!");
+                return false;
+            }
+            
+            // Set current user and redirect
+            localStorage.setItem("currentUser", username);
+            window.location.href = "../dashboard/";
+            return false;
+        }
     </script>
 </body>
 </html>

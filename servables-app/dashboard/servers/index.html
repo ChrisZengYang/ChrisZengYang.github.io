@@ -62,19 +62,30 @@
         switch(action) {
             case "":
                 const list = document.querySelector("ul.options");
+                let ownedServers = 0;
                 
-                if(Object.keys(servers).length === 0) {
-                    list.innerHTML = "<h2>You don't have any servers yet...</h2>";
-                } else {
-                    Object.keys(servers).forEach((key, value) => {
+                Object.keys(servers).forEach((key) => {
+                    if(servers[key].owner === user) {
                         list.insertAdjacentHTML("beforeend", `
                             <li>
-                                <a href="?action=edit&server=${servers[key].name}">
-                                    <h2>${key}</h2>
+                                <a href="?action=edit&server=${servers[key].name}" style="height: 200px; border-radius: 80px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: stretch;">
+                                        <div style="display: flex; align-items: center;">
+                                            <h2 style="margin: 0;">Status: ${servers[key].isOn ? "<span style='color: #00ff00;'>ONLINE</span>" : "<span style='color: red';>OFFLINE</span"}</h2>
+                                        </div>
+                                        <div style="display: flex; justify-content: flex-end; align-items: center;">
+                                            <h2>${key}</h2>
+                                        </div>
+                                    </div>
                                 </a>
                             </li>
                         `);
-                    });
+                        ownedServers ++;
+                    }
+                });
+
+                if(ownedServers === 0) {
+                    list.innerHTML = "<h2>You don't have any servers yet...</h2>";
                 }
                 break;
             case "create":
@@ -97,18 +108,19 @@
                         </div>
                         <div style="margin-top: 100px; text-align: left; width: 80%;">
 
-                            <form id="create-server-form" onsubmit="return handleServerCreation(event);">
+                            <form id="create-server-form" onsubmit="return applyServerChanges(event);">
                                 <h2>Created:</h2>
                                 <p>${new Date(server.created).toString()}</p>
 
                                 <label>Port Number</label>
-                                <input value="${server.port}">
+                                <input type="number" min="1" max="65535" value="${server.port}">
+                                
+                                <div id="edit-actions" style="display: flex; justify-content: space-around; margin-top: 200px;">
+                                    <button type="submit" class="apply">Apply Changes</button>
+                                    <button type="button" class="cancel" onclick="window.location.href='./';">Cancel</button>
+                                    <button type="button" class="remove" onclick="deleteServer();">Remove Server</button>
+                                </div>
                             </form>
-                        </div>
-                        <div style="display: flex; justify-content: space-around;">
-                            <button style="background-color: #00FF00;" onclick="applyServerChanges();">Apply Changes</button>
-                            <button style="background-color: #00FF00;" onclick="window.location.href='./';">Cancel</button>
-                            <button style="background-color: #FF0000;" onclick="deleteServer();">Remove Server</button>
                         </div>
                         `);
                 } else{
@@ -118,7 +130,6 @@
         }
 
         function createServer() {
-
             url.searchParams.set("action", "create");
 
             window.location.href = url.toString();
@@ -126,8 +137,13 @@
 
         function handleServerCreation(event) {
             event.preventDefault();
+            if(!user) {
+                alert("You must be signed in to create a server.");
+                return false;
+            }
             const serverName = document.getElementById("server-name").value;
             servers[serverName] = {
+                owner: user,
                 name: serverName,
                 created: new Date().toISOString(),
                 isOn: false,

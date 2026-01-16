@@ -26,7 +26,7 @@
         </div>
 
         <div class="container">
-            <form id="sign-up" action="../dashboard/">
+            <form id="sign-up" action="../dashboard/" onsubmit="return addAccount(event)">
                 <div class="input">
                     <img class="input-icon" src="../resources/email-64.png" alt="key icon" style="width: 32px;">
                     <input id="email" type="email" placeholder="Email" required><br>
@@ -220,6 +220,38 @@
             }
         };
     
+    </script>
+    <script>
+        function addAccount(event) {
+            event.preventDefault();
+            
+            const form = document.querySelector("form#sign-up");
+            const email = form.querySelector("input#email").value;
+            const username = form.querySelector("input#username").value;
+            const password = form.querySelector("input#password").value;
+            
+            const accounts = JSON.parse(localStorage.getItem("accounts")) || {};
+            
+            // Check if account already exists
+            if(accounts[username]) {
+                alert("Username already exists!");
+                return false;
+            }
+            
+            // Store new account
+            accounts[username] = {
+                email: email,
+                username: username,
+                password: password,
+                created: new Date().toISOString()
+            };
+            
+            localStorage.setItem("accounts", JSON.stringify(accounts));
+            localStorage.setItem("currentUser", username);
+            
+            window.location.href = form.action;
+            return false;
+        }
     </script>
 </body>
 </html

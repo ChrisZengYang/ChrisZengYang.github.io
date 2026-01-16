@@ -6,6 +6,8 @@ if(window.location.protocol === "file:") {
     host = window.location.protocol + "//" + window.location.hostname + "/servables-app";
 }
 
+let user = localStorage.getItem("currentUser");
+
 const nav = `
     <nav>
         <ul class="left">
@@ -17,10 +19,24 @@ const nav = `
             </li>
         </ul>
         <ul class="right">
+        ${
+        user ? `
+        <a href="${host}/dashboard/account/">
+            <img class="circle" src="${host}/resources/user-64.png" alt="Profile">
+            <p style="text-align: center;">${user}</p>
+        </a>
+        <button class="remove" onclick="logOut();">Log Out</button>
+        ` : `
             <button onclick="window.location.href='${host}/sign-up/'">Sign Up</button>
-            <button class="accent1" onclick="window.location.href='${host}/log-in/'">Log In</button>
+            <button class="accent1" onclick="window.location.href='${host}/log-in/'">Log In</button>`
+        }
         </ul>
     </nav>
 `;
+
+function logOut() {
+    localStorage.removeItem("currentUser");
+    window.location.href=host;
+}
 
 document.body.insertAdjacentHTML("afterbegin", nav);

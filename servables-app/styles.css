@@ -129,6 +129,28 @@ button.toggle-btn.on > div {
     background-color: #00FF00;
 }
 
+#edit-actions button {
+    width: 300px;
+}
+.apply{
+    background-color: #00a34e;
+}
+.apply:hover{
+    background-color: #007a35;
+}
+.remove{
+    background-color: rgb(202, 0, 0);
+}
+.remove:hover{
+    background-color: rgb(150, 0, 0);
+}
+.cancel{
+    background-color: #0f2452;
+}
+.cancel:hover{
+    background-color: #1a3a70;
+}
+
 /* Webkit */
 
 ::-webkit-input-placeholder {

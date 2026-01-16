@@ -9,7 +9,7 @@
 <body>
     <main>
         <section>
-            <h1>Glad you're back, User!</h1>
+            <h1>Glad you're back, <span id="user"></span>!</h1>
         <section>
         <section>
             <ul class="options">
@@ -51,5 +51,8 @@
         </section>
     </main>
     <script src="../init.js"></script>
+    <script>
+        document.getElementById("user").textContent = user;
+    </script>
 </body>
 </html>
