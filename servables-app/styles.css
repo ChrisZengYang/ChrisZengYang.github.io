@@ -78,6 +78,11 @@ h2{
     font-size: 2.5rem;
 }
 
+label {
+    font-size: 2rem;
+    margin-right: 50px;
+}
+
 /* Removes the outline when an input receives focus via mouse click, but keeps it for keyboard navigation */
 input:focus {
     outline: none;
@@ -113,6 +118,15 @@ nav button{
 }
 button.accent1{
     background-color: #5b8fff;
+}
+
+button.toggle-btn {
+    background-color: grey;
+}
+
+
+button.toggle-btn.on > div {
+    background-color: #00FF00;
 }
 
 /* Webkit */
@@ -258,4 +272,28 @@ ul.bubbled-list li {
     border-radius: 50px;
 
     margin: 50px;
+}
+
+.toggle-btn {
+    width: 120px;
+    height: 60px;
+    background-color: #51525d;
+    border: none;
+    border-radius: 999px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    padding: 0;
+}
+
+.toggle-btn div {
+    border-radius: 100%;
+    aspect-ratio: 1/1;
+    background-color: #FF0000;
+    height: calc(100% - 4px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    transition: left 0.3s ease;
 }

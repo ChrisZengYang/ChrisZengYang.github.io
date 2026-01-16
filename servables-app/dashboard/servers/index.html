@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Servers | Servables</title>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <main>
+    </main>
+    <script src="../../init.js"></script>
+    <script>
+        const url = new URL(window.location.href);
+
+        let action = url.searchParams.get("action") || "";
+        
+        let servers = JSON.parse(localStorage.getItem("servers")) || {};
+
+        const page = document.querySelector("main");
+
+        let pages = {
+            "": {
+                content: `
+                    <section>
+                        <button style="width: 100px;" onclick="createServer();">+</button>
+                        <ul class="options">
+
+                        </ul>
+                    </section>
+                `
+            },
+            "create": {
+                content: `
+                    <section style="display: flex; flex-direction: column; align-items: center;">
+                        <h1>Create a new Server</h1>
+                        <div style="margin-top: 100px; text-align: left; width: 80%;">
+                            <form id="create-server-form" onsubmit="return handleServerCreation(event);">
+                                <label>Server Name</label>
+                                <input id="server-name" required><br>
+                                <label>Port Number</label>
+                                <input type="number" min="1" max="65535" id="port" required>
+
+
+                                <button type="submit">Create Server</button>
+                            </form>
+                        </div>
+                    </section>
+                `
+            },
+            "edit": {
+                content: `
+                    <section>
+                        <h1 id="title"></h1>
+                    </section>
+                `
+            }
+        };
+
+        page.innerHTML = pages[action].content;
+
+        switch(action) {
+            case "":
+                const list = document.querySelector("ul.options");
+                
+                if(Object.keys(servers).length === 0) {
+                    list.innerHTML = "<h2>You don't have any servers yet...</h2>";
+                } else {
+                    Object.keys(servers).forEach((key, value) => {
+                        list.insertAdjacentHTML("beforeend", `
+                            <li>
+                                <a href="?action=edit&server=${servers[key].name}">
+                                    <h2>${key}</h2>
+                                </a>
+                            </li>
+                        `);
+                    });
+                }
+                break;
+            case "create":
+            
+                break;
+            case "edit":
+                let server = servers[decodeURIComponent(url.searchParams.get("server"))];
+                const title = document.getElementById("title");
+                if(server) {
+                    title.textContent = "Configuring server \"" + server.name + "\"";
+
+                    document.querySelector("section").insertAdjacentHTML("beforeend", `
+                        <div style="display: flex; flex-direction: column; align-items: center; margin-top: 100px;">
+                            <h2 id="status">Server Status:</h2>
+                            <button type="button" class="toggle-btn ${server.isOn ? 'on' : ''}" onclick="updateServerState(true);">
+                                <div>
+                                    
+                                </div>
+                            </button>
+                        </div>
+                        <div style="margin-top: 100px; text-align: left; width: 80%;">
+
+                            <form id="create-server-form" onsubmit="return handleServerCreation(event);">
+                                <h2>Created:</h2>
+                                <p>${new Date(server.created).toString()}</p>
+
+                                <label>Port Number</label>
+                                <input value="${server.port}">
+                            </form>
+                        </div>
+                        <div style="display: flex; justify-content: space-around;">
+                            <button style="background-color: #00FF00;" onclick="applyServerChanges();">Apply Changes</button>
+                            <button style="background-color: #00FF00;" onclick="window.location.href='./';">Cancel</button>
+                            <button style="background-color: #FF0000;" onclick="deleteServer();">Remove Server</button>
+                        </div>
+                        `);
+                } else{
+                    title.textContent = "Server not found.";
+                }
+                break;
+        }
+
+        function createServer() {
+
+            url.searchParams.set("action", "create");
+
+            window.location.href = url.toString();
+        }
+
+        function handleServerCreation(event) {
+            event.preventDefault();
+            const serverName = document.getElementById("server-name").value;
+            servers[serverName] = {
+                name: serverName,
+                created: new Date().toISOString(),
+                isOn: false,
+
+                port: document.getElementById("port").value,
+            };
+            localStorage.setItem("servers", JSON.stringify(servers));
+            url.searchParams.set("action", "edit");
+            url.searchParams.set("server", serverName);
+            window.location.href = url.toString();
+        }
+
+        function updateServerState(toggle) {
+            const server = servers[url.searchParams.get("server")];
+            if(server) {
+                if(toggle) {
+                    server.isOn = !server.isOn;
+                }
+
+                document.getElementById("status").innerHTML = "Server Status: " + (server.isOn ? "<span style='color: #00ff00;'>ON</span>" : "<span style='color: #ff0000;'>OFF</span>");
+
+                localStorage.setItem("servers", JSON.stringify(servers));
+                const btn = document.querySelector(".toggle-btn");
+                let btnRect = btn.getBoundingClientRect();
+                let circle = btn.querySelector("div");
+                let circleRect = circle.getBoundingClientRect();
+                if(server.isOn) {
+                    btn.classList.add("on");
+                    circle.style.left = (btnRect.width - circleRect.width - 2) + "px";
+                } else{
+                    btn.classList.remove("on");
+                    circle.style.left = "2px";
+                }
+            }
+        }
+
+        updateServerState();
+
+        function applyServerChanges() {
+            const server = servers[url.searchParams.get("server")];
+            if(server) {
+                const portInput = document.querySelector("form#create-server-form input:not([type='submit'])");
+                if(portInput) {
+                    server.port = portInput.value;
+                    localStorage.setItem("servers", JSON.stringify(servers));
+                    alert("Server changes applied successfully!");
+                }
+            }
+        }
+
+        function deleteServer() {
+            if(confirm("Are you sure?")) {
+                const serverName = url.searchParams.get("server");
+                delete servers[serverName];
+                localStorage.setItem("servers", JSON.stringify(servers));
+                url.searchParams.delete("action");
+                url.searchParams.delete("server");
+                window.location.href = url.toString();
+            }
+        }
+    </script>
+</body>
+</html>
