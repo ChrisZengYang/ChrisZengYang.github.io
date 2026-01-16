@@ -34,9 +34,16 @@ const nav = `
     </nav>
 `;
 
+const footer = `
+    <footer>
+        <center><small>Servables ${new Date().getFullYear()}&copy;</small></center>
+    </footer>
+`;
+
 function logOut() {
     localStorage.removeItem("currentUser");
     window.location.href=host;
 }
 
 document.body.insertAdjacentHTML("afterbegin", nav);
+document.body.insertAdjacentHTML("beforeend", footer);

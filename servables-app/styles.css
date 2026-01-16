@@ -151,6 +151,10 @@ button.toggle-btn.on > div {
     background-color: #1a3a70;
 }
 
+footer{
+    padding: 200px 0 100px;
+}
+
 /* Webkit */
 
 ::-webkit-input-placeholder {
@@ -292,8 +296,20 @@ ul.bubbled-list li {
     background-color: #131313;
     padding: 50px;
     border-radius: 50px;
-
     margin: 50px;
+    
+    border: 2px solid #264bae;
+    box-shadow: 0 8px 24px rgba(38, 75, 174, 0.2);
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+ul.bubbled-list li:hover {
+    background-color: #1a2d4a;
+    border-color: #5b8fff;
+    box-shadow: 0 12px 32px rgba(91, 143, 255, 0.4);
+    transform: translateY(-5px);
 }
 
 .toggle-btn {
